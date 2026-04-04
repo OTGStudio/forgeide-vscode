@@ -1,0 +1,81 @@
+{
+  "name": "forgeid",
+  "displayName": "ForgeIDE — Game Dev AI Assistant",
+  "description": "AI-powered game design knowledge base and coding assistant for Unity, Unreal Engine, and Godot developers.",
+  "version": "0.1.0",
+  "publisher": "otgstudio",
+  "repository": "https://github.com/OTGStudio/project-eade",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["AI", "Programming Languages", "Other"],
+  "keywords": ["unity", "unreal engine", "godot", "game development", "ai", "game design patterns"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "forgeid.openChat",
+        "title": "ForgeIDE: Open AI Chat"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "forgeid-sidebar",
+          "title": "ForgeIDE",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "forgeid-sidebar": [
+        {
+          "type": "webview",
+          "id": "forgeid.chatView",
+          "name": "AI Chat"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ForgeIDE",
+      "properties": {
+        "forgeid.ollamaBaseUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama base URL for local AI inference"
+        },
+        "forgeid.ollamaModel": {
+          "type": "string",
+          "default": "qwen2.5-coder:7b-instruct",
+          "description": "Ollama model to use for chat"
+        },
+        "forgeid.routingMode": {
+          "type": "string",
+          "enum": ["local", "cloud", "local-first"],
+          "default": "local-first",
+          "description": "AI routing mode: local (Ollama only), cloud (Claude API), or local-first (try Ollama, fall back to Claude)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "webpack --mode development",
+    "package": "webpack --mode production && vsce package",
+    "watch": "webpack --mode development --watch"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "ts-loader": "^9",
+    "typescript": "^5",
+    "webpack": "^5",
+    "webpack-cli": "^5",
+    "@vscode/vsce": "^3"
+  },
+  "dependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "react-markdown": "^9",
+    "react-syntax-highlighter": "^15"
+  }
+}
