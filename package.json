@@ -5,10 +5,25 @@
   "version": "0.1.0",
   "publisher": "otgstudio",
   "repository": "https://github.com/OTGStudio/project-eade",
-  "engines": { "vscode": "^1.90.0" },
-  "categories": ["AI", "Programming Languages", "Other"],
-  "keywords": ["unity", "unreal engine", "godot", "game development", "ai", "game design patterns"],
-  "activationEvents": ["onStartupFinished"],
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "unity",
+    "unreal engine",
+    "godot",
+    "game development",
+    "ai",
+    "game design patterns"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -50,7 +65,11 @@
         },
         "forgeid.routingMode": {
           "type": "string",
-          "enum": ["local", "cloud", "local-first"],
+          "enum": [
+            "local",
+            "cloud",
+            "local-first"
+          ],
           "default": "local-first",
           "description": "AI routing mode: local (Ollama only), cloud (Claude API), or local-first (try Ollama, fall back to Claude)"
         }
@@ -63,14 +82,15 @@
     "watch": "webpack --mode development --watch"
   },
   "devDependencies": {
-    "@types/vscode": "^1.90.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3",
     "ts-loader": "^9",
     "typescript": "^5",
     "webpack": "^5",
-    "webpack-cli": "^5",
-    "@vscode/vsce": "^3"
+    "webpack-cli": "^5"
   },
   "dependencies": {
     "react": "^19",

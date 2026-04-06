@@ -75,6 +75,7 @@ export class ChatPanel implements vscode.WebviewViewProvider {
     body { margin: 0; padding: 0; height: 100vh; overflow: hidden;
            background: var(--vscode-editor-background); color: var(--vscode-editor-foreground); }
     #root { height: 100%; }
+    @keyframes forgeide-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
