@@ -19,6 +19,7 @@ export function App() {
   const [isStreaming, setIsStreaming]  = useState(false);
   const [pendingKb, setPendingKb]     = useState<string | null>(null);
   const [apiKey, setApiKey]           = useState<string | null>(null);
+  const [apiKeyInput, setApiKeyInput] = useState('');
   const [routingMode, setRoutingMode] = useState<RoutingMode>('local-first');
 
   const routerRef = useRef(new AIRouter());
@@ -127,6 +128,74 @@ export function App() {
         ))}
         <div ref={messagesEndRef} />
       </div>
+      {/* API key prompt — shown when cloud routing needs a key */}
+      {!apiKey && routingMode !== 'local' && (
+        <div style={{ padding: '8px', borderTop: '1px solid var(--vscode-panel-border)', background: 'var(--vscode-editor-background)' }}>
+          <label style={{ fontSize: 11, color: 'var(--vscode-descriptionForeground)', display: 'block', marginBottom: 4 }}>
+            Anthropic API Key (required for cloud mode)
+          </label>
+          <div style={{ display: 'flex', gap: 4 }}>
+            <input
+              type="password"
+              value={apiKeyInput}
+              onChange={(e) => setApiKeyInput(e.target.value)}
+              placeholder="sk-ant-..."
+              style={{
+                flex: 1, fontSize: 11, padding: '4px 6px',
+                background: 'var(--vscode-input-background)',
+                color: 'var(--vscode-input-foreground)',
+                border: '1px solid var(--vscode-input-border)',
+                borderRadius: 3,
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && apiKeyInput.trim()) {
+                  send({ type: 'set_secret', value: apiKeyInput.trim() });
+                  setApiKey(apiKeyInput.trim());
+                  routerRef.current.setApiKey(apiKeyInput.trim());
+                  setApiKeyInput('');
+                }
+              }}
+            />
+            <button
+              onClick={() => {
+                if (!apiKeyInput.trim()) return;
+                send({ type: 'set_secret', value: apiKeyInput.trim() });
+                setApiKey(apiKeyInput.trim());
+                routerRef.current.setApiKey(apiKeyInput.trim());
+                setApiKeyInput('');
+              }}
+              style={{
+                fontSize: 11, padding: '4px 10px', borderRadius: 3, border: 'none', cursor: 'pointer',
+                background: 'var(--vscode-button-background)',
+                color: 'var(--vscode-button-foreground)',
+              }}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      )}
+      {apiKey && routingMode !== 'local' && (
+        <div style={{ padding: '4px 8px', borderTop: '1px solid var(--vscode-panel-border)', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ fontSize: 11, color: 'var(--vscode-descriptionForeground)' }}>
+            API key saved
+          </span>
+          <button
+            onClick={() => {
+              send({ type: 'set_secret', value: '' });
+              setApiKey(null);
+              routerRef.current.setApiKey('');
+            }}
+            style={{
+              fontSize: 10, padding: '2px 6px', borderRadius: 3, cursor: 'pointer',
+              background: 'transparent', border: '1px solid var(--vscode-input-border)',
+              color: 'var(--vscode-descriptionForeground)',
+            }}
+          >
+            Clear
+          </button>
+        </div>
+      )}
       <ChatInput
         onSend={handleSend}
         disabled={isStreaming || !config}
