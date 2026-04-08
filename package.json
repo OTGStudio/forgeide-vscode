@@ -2,7 +2,7 @@
   "name": "forgeid",
   "displayName": "ForgeIDE — Game Dev AI Assistant",
   "description": "AI-powered game design knowledge base and coding assistant for Unity, Unreal Engine, and Godot developers.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "otgstudio",
   "repository": "https://github.com/OTGStudio/project-eade",
   "engines": {
@@ -19,6 +19,8 @@
     "godot",
     "game development",
     "ai",
+    "local AI",
+    "knowledge base",
     "game design patterns"
   ],
   "activationEvents": [
