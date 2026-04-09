@@ -12,6 +12,13 @@ interface Config {
 
 interface Message { role: 'user' | 'assistant'; content: string; }
 
+interface ChatSession {
+  id: string;
+  title: string;
+  createdAt: number;
+  messages: Message[];
+}
+
 export function App() {
   const [messages, setMessages]       = useState<Message[]>([]);
   const [config, setConfig]           = useState<Config | null>(null);
@@ -21,6 +28,12 @@ export function App() {
   const [apiKey, setApiKey]           = useState<string | null>(null);
   const [apiKeyInput, setApiKeyInput] = useState('');
   const [routingMode, setRoutingMode] = useState<RoutingMode>('local-first');
+
+  // Session management
+  const [sessions, setSessions]             = useState<ChatSession[]>([]);
+  const [currentSessionId, setCurrentSessionId] = useState<string>(crypto.randomUUID());
+  const [sessionLimit, setSessionLimit]     = useState(5);
+  const [showHistory, setShowHistory]       = useState(false);
 
   const routerRef = useRef(new AIRouter());
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -47,6 +60,10 @@ export function App() {
         setPendingKb(ctx);
       }
     }
+    if (msg.type === 'sessions_loaded') {
+      setSessions((msg.sessions as ChatSession[]) ?? []);
+      setSessionLimit((msg.limit as number) ?? 5);
+    }
   }, []);
 
   const { send } = useVSCodeBridge(handleMessage);
@@ -55,11 +72,84 @@ export function App() {
     send({ type: 'get_config' });
     send({ type: 'get_secret' });
     send({ type: 'get_workspace' });
+    send({ type: 'load_sessions' });
   }, [send]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Persist sessions to extension host whenever they change
+  const persistSessions = useCallback((updated: ChatSession[]) => {
+    send({ type: 'save_sessions', sessions: updated });
+  }, [send]);
+
+  const newSession = useCallback(() => {
+    let updatedSessions = [...sessions];
+
+    // Archive current chat if it has messages
+    if (messages.length > 0) {
+      const firstUserMsg = messages.find(m => m.role === 'user');
+      const title = firstUserMsg
+        ? firstUserMsg.content.slice(0, 50) + (firstUserMsg.content.length > 50 ? '...' : '')
+        : 'Untitled';
+      const archived: ChatSession = {
+        id: currentSessionId,
+        title,
+        createdAt: Date.now(),
+        messages: [...messages],
+      };
+      updatedSessions = [archived, ...updatedSessions.filter(s => s.id !== currentSessionId)];
+
+      // Trim to limit
+      while (updatedSessions.length > sessionLimit) {
+        updatedSessions.pop();
+      }
+    }
+
+    setSessions(updatedSessions);
+    persistSessions(updatedSessions);
+    setMessages([]);
+    setCurrentSessionId(crypto.randomUUID());
+  }, [messages, sessions, currentSessionId, sessionLimit, persistSessions]);
+
+  const loadSession = useCallback((id: string) => {
+    const target = sessions.find(s => s.id === id);
+    if (!target) return;
+
+    // Archive current first
+    let updatedSessions = [...sessions];
+    if (messages.length > 0) {
+      const firstUserMsg = messages.find(m => m.role === 'user');
+      const title = firstUserMsg
+        ? firstUserMsg.content.slice(0, 50) + (firstUserMsg.content.length > 50 ? '...' : '')
+        : 'Untitled';
+      const archived: ChatSession = {
+        id: currentSessionId,
+        title,
+        createdAt: Date.now(),
+        messages: [...messages],
+      };
+      const idx = updatedSessions.findIndex(s => s.id === currentSessionId);
+      if (idx >= 0) {
+        updatedSessions[idx] = archived;
+      } else {
+        updatedSessions = [archived, ...updatedSessions];
+      }
+    }
+
+    setSessions(updatedSessions);
+    persistSessions(updatedSessions);
+    setMessages([...target.messages]);
+    setCurrentSessionId(id);
+    setShowHistory(false);
+  }, [messages, sessions, currentSessionId, persistSessions]);
+
+  const deleteSession = useCallback((id: string) => {
+    const updated = sessions.filter(s => s.id !== id);
+    setSessions(updated);
+    persistSessions(updated);
+  }, [sessions, persistSessions]);
 
   const handleSend = async (text: string) => {
     if (!config) return;
@@ -116,6 +206,81 @@ export function App() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', fontFamily: 'var(--vscode-font-family)' }}>
+      {/* Header with New Chat + History */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '6px 8px', borderBottom: '1px solid var(--vscode-panel-border)',
+        fontSize: 11,
+      }}>
+        <span style={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--vscode-descriptionForeground)' }}>
+          AI Chat
+        </span>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <button
+            onClick={newSession}
+            style={{
+              fontSize: 11, padding: '2px 8px', borderRadius: 3, cursor: 'pointer',
+              background: 'transparent', border: '1px solid var(--vscode-input-border)',
+              color: 'var(--vscode-textLink-foreground)',
+            }}
+            title="Start a new chat (archives current)"
+          >
+            + New
+          </button>
+          {sessions.length > 0 && (
+            <button
+              onClick={() => setShowHistory(!showHistory)}
+              style={{
+                fontSize: 11, padding: '2px 8px', borderRadius: 3, cursor: 'pointer',
+                background: showHistory ? 'var(--vscode-button-background)' : 'transparent',
+                color: showHistory ? 'var(--vscode-button-foreground)' : 'var(--vscode-descriptionForeground)',
+                border: '1px solid var(--vscode-input-border)',
+              }}
+              title="Show past sessions"
+            >
+              History ({sessions.length})
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Session history list */}
+      {showHistory && (
+        <div style={{ maxHeight: 140, overflowY: 'auto', borderBottom: '1px solid var(--vscode-panel-border)' }}>
+          {sessions.map(ses => (
+            <div
+              key={ses.id}
+              onClick={() => loadSession(ses.id)}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '4px 8px', fontSize: 11, cursor: 'pointer',
+                borderBottom: '1px solid var(--vscode-panel-border)',
+                background: ses.id === currentSessionId ? 'var(--vscode-list-activeSelectionBackground)' : 'transparent',
+                color: ses.id === currentSessionId ? 'var(--vscode-list-activeSelectionForeground)' : 'var(--vscode-editor-foreground)',
+              }}
+            >
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }} title={ses.title}>
+                {ses.title}
+              </span>
+              <span style={{ flexShrink: 0, marginLeft: 6, fontSize: 10, color: 'var(--vscode-descriptionForeground)' }}>
+                {new Date(ses.createdAt).toLocaleDateString()}
+              </span>
+              <button
+                onClick={(e) => { e.stopPropagation(); deleteSession(ses.id); }}
+                style={{
+                  flexShrink: 0, marginLeft: 4, padding: '0 4px', cursor: 'pointer',
+                  background: 'transparent', border: 'none', fontSize: 10,
+                  color: 'var(--vscode-descriptionForeground)',
+                }}
+                title="Delete session"
+              >
+                x
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div style={{ flex: 1, overflowY: 'auto', padding: 8 }}>
         {messages.length === 0 && (
           <p style={{ color: 'var(--vscode-descriptionForeground)', textAlign: 'center', marginTop: 40, fontSize: 12 }}>

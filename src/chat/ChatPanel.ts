@@ -55,6 +55,20 @@ export class ChatPanel implements vscode.WebviewViewProvider {
           webviewView.webview.postMessage({ type: 'workspace', path: ws });
           break;
         }
+        case 'save_sessions': {
+          await this.context.globalState.update('forgeide.chatSessions', msg.sessions);
+          break;
+        }
+        case 'load_sessions': {
+          const sessions = this.context.globalState.get('forgeide.chatSessions', []);
+          const limit = this.context.globalState.get('forgeide.sessionLimit', 5);
+          webviewView.webview.postMessage({ type: 'sessions_loaded', sessions, limit });
+          break;
+        }
+        case 'save_session_limit': {
+          await this.context.globalState.update('forgeide.sessionLimit', msg.limit);
+          break;
+        }
       }
     });
   }
