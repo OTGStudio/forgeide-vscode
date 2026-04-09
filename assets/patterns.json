@@ -438,5 +438,115 @@
     "complexity": 2,
     "engine_tags": ["unity", "unreal", "godot", "custom"],
     "genre_tags": ["fps", "rpg", "action", "strategy"]
+  },
+  {
+    "id": "PAT_SERVICE_LOCATOR",
+    "name": "Service Locator",
+    "domain": "programming",
+    "summary": "Provide a global access point to a service (audio, physics, logging) without coupling to the concrete implementation. A controlled alternative to raw singletons — swap implementations for testing or platform differences.",
+    "when_to_use": "Cross-cutting services needed everywhere (audio, analytics, save system). When you want to swap implementations at runtime (mock audio in tests, null logger in production).",
+    "pitfalls": "Still a global — hides dependencies. Overuse leads to the same problems as singletons. Prefer constructor injection when feasible. Unity's FindObjectOfType is the worst form of this.",
+    "complexity": 1,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_EVENT_QUEUE",
+    "name": "Event Queue",
+    "domain": "programming",
+    "summary": "Buffer events and process them later in a controlled order. Decouples the moment something happens from the moment it is handled. Prevents cascading side effects during update loops.",
+    "when_to_use": "Audio event dispatch, UI notification systems, networked event replay, undo/redo systems. Whenever processing order matters or you need to defer work.",
+    "pitfalls": "Queue growth under load — needs a cap or drain policy. Debugging deferred events is harder than synchronous calls. Stale references if objects are destroyed before their events process.",
+    "complexity": 2,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_DOUBLE_BUFFER",
+    "name": "Double Buffer",
+    "domain": "programming",
+    "summary": "Maintain two copies of state — one being read, one being written. Swap atomically when the write is complete. Prevents tearing and ordering bugs during concurrent reads and writes.",
+    "when_to_use": "Physics state updates (read current, write next), AI world model snapshots, render state for multithreaded rendering, network snapshot interpolation.",
+    "pitfalls": "Doubles memory usage. Swap timing is critical — a missed swap causes a stale frame. Not always needed if you can guarantee update order.",
+    "complexity": 2,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_TYPE_OBJECT",
+    "name": "Type Object",
+    "domain": "design",
+    "summary": "Define entity types as data rather than classes. Each instance holds a reference to a shared type object that defines its stats, behavior, and appearance. Avoids class explosion for content-heavy games.",
+    "when_to_use": "RPG item/enemy types, card game card definitions, any system with hundreds of entity variants. Unity ScriptableObjects and Unreal DataAssets are engine implementations of this pattern.",
+    "pitfalls": "Type changes at runtime can be confusing. Inheritance between type objects adds complexity. Need a robust editor for designers.",
+    "complexity": 2,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["rpg", "strategy", "roguelite", "simulation"]
+  },
+  {
+    "id": "PAT_SUBCLASS_SANDBOX",
+    "name": "Subclass Sandbox",
+    "domain": "programming",
+    "summary": "Define a base class with a set of protected operations. Subclasses implement behavior by combining those operations — never accessing external systems directly. Limits coupling surface.",
+    "when_to_use": "Spell/ability systems where each spell is a subclass. Unity MonoBehaviour is a sandbox — Start, Update, GetComponent are the provided operations. Keeps subclass authors safe.",
+    "pitfalls": "Base class grows over time as subclasses need more operations. Tight coupling to the sandbox API. Consider composition if the base class exceeds 15-20 operations.",
+    "complexity": 1,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_UPDATE_METHOD",
+    "name": "Update Method",
+    "domain": "programming",
+    "summary": "Give each active entity an Update() method called once per frame. The game loop iterates a list of active entities and ticks each one. Simple, universal, and the default in most engines.",
+    "when_to_use": "Default for entity behavior in Unity (MonoBehaviour.Update), Godot (_process), Unreal (Tick). Good starting point before optimizing to ECS or batch processing.",
+    "pitfalls": "Per-entity virtual dispatch is cache-unfriendly at scale. Call overhead adds up with thousands of entities. Profile before assuming it's a bottleneck — it's often fine.",
+    "complexity": 1,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_COMPONENT",
+    "name": "Component (OOP)",
+    "domain": "programming",
+    "summary": "Attach reusable behavior components to entities instead of using deep inheritance hierarchies. Each component handles one concern (physics, rendering, AI). Compose entities from components at runtime.",
+    "when_to_use": "When entity types share some behaviors but not others (e.g., some enemies fly, some swim). Unity's GameObject+Component, Godot's Node system, Unreal's ActorComponent are all this pattern.",
+    "pitfalls": "Inter-component communication can be awkward (GetComponent lookups). Component ordering may matter (physics before rendering). Not the same as ECS — this is the OOP variant.",
+    "complexity": 1,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_FLYWEIGHT",
+    "name": "Flyweight",
+    "domain": "optimization",
+    "summary": "Share intrinsic (immutable) state across many instances while keeping extrinsic (per-instance) state separate. Reduces memory usage when thousands of objects share the same mesh, texture, or stats.",
+    "when_to_use": "Instanced rendering (thousands of trees sharing one mesh), tile maps, particle systems. GPU instancing in Unity/Unreal is hardware-level flyweight.",
+    "pitfalls": "Adds indirection. Mutable shared state causes bugs. Must clearly separate intrinsic from extrinsic state at design time.",
+    "complexity": 2,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_PROTOTYPE",
+    "name": "Prototype",
+    "domain": "programming",
+    "summary": "Create new objects by cloning an existing prototype instead of constructing from scratch. Useful when setup is expensive or configuration-heavy. Engine spawn functions are implementations of this pattern.",
+    "when_to_use": "Prefab instantiation (Unity Instantiate, Godot duplicate), entity factories, level editors with copy-paste. When objects need complex initialization that a constructor alone can't express.",
+    "pitfalls": "Deep vs. shallow clone confusion — nested references may share state unexpectedly. Clone must properly reset runtime state (health, position). Prototype bloat if prototypes accumulate.",
+    "complexity": 1,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["all"]
+  },
+  {
+    "id": "PAT_BYTECODE",
+    "name": "Bytecode / Script Object",
+    "domain": "design",
+    "summary": "Encode behavior as data-driven instructions that a virtual machine interprets at runtime. Enables designers to create complex behavior without recompiling. Visual scripting and dialogue systems use this pattern.",
+    "when_to_use": "Modding support, visual scripting (Unreal Blueprints, Godot VisualScript), dialogue trees (Ink, Yarn Spinner), AI behavior configuration for designers.",
+    "pitfalls": "Debugging interpreted code is harder. Performance ceiling vs. native code. Version compatibility of saved bytecode across patches. Tooling investment is high.",
+    "complexity": 3,
+    "engine_tags": ["unity", "unreal", "godot", "custom"],
+    "genre_tags": ["rpg", "strategy", "simulation", "all"]
   }
 ]

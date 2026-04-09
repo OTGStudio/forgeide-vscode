@@ -67,6 +67,9 @@ export function App() {
     // Request KB results
     send({ type: 'kb_search', query: text });
 
+    // Capture prior history BEFORE adding the new messages to avoid duplicates
+    const priorMessages = messages.filter(m => m.content);
+
     setMessages(prev => [...prev, { role: 'user', content: text }]);
     setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
     setIsStreaming(true);
@@ -82,7 +85,7 @@ export function App() {
       await routerRef.current.chat(
         [
           { role: 'system', content: systemPrompt },
-          ...messages.filter(m => m.content),
+          ...priorMessages,
           { role: 'user', content: text },
         ],
         routingMode,

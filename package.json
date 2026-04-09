@@ -81,7 +81,8 @@
   "scripts": {
     "compile": "webpack --mode development",
     "package": "webpack --mode production && vsce package",
-    "watch": "webpack --mode development --watch"
+    "watch": "webpack --mode development --watch",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@types/react": "^19",
@@ -91,6 +92,7 @@
     "@vscode/vsce": "^3",
     "ts-loader": "^9",
     "typescript": "^5",
+    "vitest": "^4.1.4",
     "webpack": "^5",
     "webpack-cli": "^5"
   },
