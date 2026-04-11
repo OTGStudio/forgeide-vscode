@@ -3,12 +3,19 @@
     "id": "PAT_GAME_LOOP",
     "name": "Game Loop",
     "domain": "programming",
-    "summary": "The heartbeat of every game — decouple update rate from render rate. Fixed timestep for physics/gameplay logic, variable timestep for rendering.",
+    "summary": "The heartbeat of every game \u00e2\u20ac\u201d decouple update rate from render rate. Fixed timestep for physics/gameplay logic, variable timestep for rendering.",
     "when_to_use": "Every game needs a game loop. Use fixed timestep when physics determinism matters (multiplayer, physics puzzles). Use variable for pure rendering.",
     "pitfalls": "Spiral of death when update time > timestep. Accumulator pattern prevents this.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_OBJECT_POOL",
@@ -18,8 +25,17 @@
     "when_to_use": "Any object spawned and destroyed at high frequency. Rule of thumb: > 10 spawns/second benefits from pooling.",
     "pitfalls": "Forgetting to reset state on return. Pool exhaustion if not sized correctly. Don't pool objects that are rarely created.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["shooter", "action", "roguelite"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "shooter",
+      "action",
+      "roguelite"
+    ]
   },
   {
     "id": "PAT_OBSERVER",
@@ -27,10 +43,17 @@
     "domain": "programming",
     "summary": "Decouple event senders from receivers. One object broadcasts an event; any number of listeners react without the sender knowing who they are.",
     "when_to_use": "Achievement systems, UI updates, cross-system communication, audio triggers. Anywhere a 1:N notification is needed.",
-    "pitfalls": "Memory leaks from unregistered listeners. Event storms (cascading events). Debugging difficulty — hard to trace what triggered what.",
+    "pitfalls": "Memory leaks from unregistered listeners. Event storms (cascading events). Debugging difficulty \u00e2\u20ac\u201d hard to trace what triggered what.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_COMMAND",
@@ -40,8 +63,18 @@
     "when_to_use": "Undo/redo systems. Input buffering for fighting games (frame-perfect inputs). Action replay. Networked games where actions must be serialized.",
     "pitfalls": "Overhead for simple games. Command objects accumulate if undo buffer is unbounded.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["strategy", "puzzle", "fighting", "rts"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "strategy",
+      "puzzle",
+      "fighting",
+      "rts"
+    ]
   },
   {
     "id": "PAT_STATE_MACHINE",
@@ -51,8 +84,15 @@
     "when_to_use": "Any entity with clearly defined, mutually exclusive behavioral states. The moment you have > 2 if/else chains checking state flags, use a FSM.",
     "pitfalls": "State explosion for complex behavior. Transition spaghetti. Prefer Hierarchical FSM (HFSM) or Behavior Trees for complex AI.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_ECS",
@@ -62,8 +102,16 @@
     "when_to_use": "Large numbers of similar entities (1000+ objects). Games requiring high performance iteration. When OOP inheritance hierarchies become unwieldy.",
     "pitfalls": "Conceptual shift from OOP. Harder to reason about single-entity behavior. Unity DOTS requires significant buy-in. Over-engineering for small games.",
     "complexity": 3,
-    "engine_tags": ["unity", "custom"],
-    "genre_tags": ["simulation", "rts", "mmo", "sandbox"]
+    "engine_tags": [
+      "unity",
+      "custom"
+    ],
+    "genre_tags": [
+      "simulation",
+      "rts",
+      "mmo",
+      "sandbox"
+    ]
   },
   {
     "id": "PAT_BEHAVIOR_TREE",
@@ -73,8 +121,17 @@
     "when_to_use": "NPC AI more complex than a simple FSM. When designers need to author AI without code. Unreal uses BTs natively; Unity needs a plugin.",
     "pitfalls": "Harder to express emergent behavior than utility AI. Can become unreadably deep. Tick rate management is non-obvious.",
     "complexity": 2,
-    "engine_tags": ["unreal", "unity", "godot"],
-    "genre_tags": ["action", "rpg", "stealth", "fps"]
+    "engine_tags": [
+      "unreal",
+      "unity",
+      "godot"
+    ],
+    "genre_tags": [
+      "action",
+      "rpg",
+      "stealth",
+      "fps"
+    ]
   },
   {
     "id": "PAT_SPATIAL_PARTITION",
@@ -84,8 +141,18 @@
     "when_to_use": "Any game with proximity checks (collision, line of sight, area-of-effect). Essential when entity count > ~100.",
     "pitfalls": "Update cost when entities move frequently. Cell size tuning. Not worth it for < 50 entities.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["rts", "simulation", "mmo", "open-world"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "rts",
+      "simulation",
+      "mmo",
+      "open-world"
+    ]
   },
   {
     "id": "PAT_DIRTY_FLAG",
@@ -95,8 +162,15 @@
     "when_to_use": "Any derived computation that is expensive and the source changes less often than the derived data is read.",
     "pitfalls": "Forgetting to set the flag. Cascading dirty flags. Difficult to debug stale state bugs.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_GAME_ECONOMY",
@@ -106,8 +180,19 @@
     "when_to_use": "Any game with resources (health, currency, ammo, mana, time). Essential for idle games, city builders, 4X, and RPGs.",
     "pitfalls": "Runaway leader problem. Resource starvation killing fun. Ignoring secondary/tertiary resources.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["rpg", "strategy", "simulation", "idle", "city-builder"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "rpg",
+      "strategy",
+      "simulation",
+      "idle",
+      "city-builder"
+    ]
   },
   {
     "id": "PAT_ROLLBACK_NETCODE",
@@ -115,10 +200,17 @@
     "domain": "networking",
     "summary": "Each client predicts game state locally. On mismatch, roll back to last confirmed state and resimulate. Minimizes perceived input latency for fast-paced games.",
     "when_to_use": "Fighting games, action games where input latency > 2 frames is noticeable. Requires deterministic simulation.",
-    "pitfalls": "Determinism requirement is strict — any float divergence breaks rollback. Visual artifacts during rollback. High CPU cost.",
+    "pitfalls": "Determinism requirement is strict \u00e2\u20ac\u201d any float divergence breaks rollback. Visual artifacts during rollback. High CPU cost.",
     "complexity": 3,
-    "engine_tags": ["unity", "custom"],
-    "genre_tags": ["fighting", "action", "platformer"]
+    "engine_tags": [
+      "unity",
+      "custom"
+    ],
+    "genre_tags": [
+      "fighting",
+      "action",
+      "platformer"
+    ]
   },
   {
     "id": "PAT_SNAPSHOT_INTERPOLATION",
@@ -128,19 +220,37 @@
     "when_to_use": "Slower-paced games where 100-200ms of visual latency is acceptable (MOBAs, MMORPGs, strategy games). Simpler than rollback.",
     "pitfalls": "Visual lag equal to interpolation buffer. Objects teleport if buffer underruns. Jitter from variable network conditions.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["mmo", "moba", "strategy", "rpg"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "moba",
+      "strategy",
+      "rpg"
+    ]
   },
   {
     "id": "PAT_CLIENT_SIDE_PREDICTION",
     "name": "Client-Side Prediction",
     "domain": "networking",
-    "summary": "Client immediately applies player input locally. Server authoritative result arrives later — client reconciles if diverged. Feels instant to the player.",
+    "summary": "Client immediately applies player input locally. Server authoritative result arrives later \u00e2\u20ac\u201d client reconciles if diverged. Feels instant to the player.",
     "when_to_use": "Any game with player-controlled movement over a network. The minimum viable netcode feature for good game feel.",
     "pitfalls": "Reconciliation artifacts (rubber-banding). Complex for non-deterministic physics. Must be combined with server authority to prevent cheating.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "action", "sports", "battle-royale"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "action",
+      "sports",
+      "battle-royale"
+    ]
   },
   {
     "id": "PAT_LOD",
@@ -150,8 +260,17 @@
     "when_to_use": "Any game with objects visible at varying distances. GPU-bound performance with many visible objects.",
     "pitfalls": "Pop-in artifacts at LOD boundaries. LOD transitions requiring designer tuning. Memory cost of multiple LOD levels.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["open-world", "fps", "rpg", "simulation"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open-world",
+      "fps",
+      "rpg",
+      "simulation"
+    ]
   },
   {
     "id": "PAT_PROC_GEN_CONTENT",
@@ -161,8 +280,19 @@
     "when_to_use": "Roguelikes and roguelites. Infinite worlds (Minecraft). Games where replayability is core. When manual content creation cost is prohibitive.",
     "pitfalls": "Quality floor is hard to guarantee. Player understanding of rules can break immersion. Requires more design constraint work upfront.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["roguelite", "roguelike", "survival", "open-world", "idle"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "roguelite",
+      "roguelike",
+      "survival",
+      "open-world",
+      "idle"
+    ]
   },
   {
     "id": "PAT_SAVE_SYSTEM",
@@ -172,19 +302,32 @@
     "when_to_use": "Every game with persistence. Snapshot for small games. Delta for large games. Checkpoint for games with intentional save friction (roguelikes, soulslikes).",
     "pitfalls": "Save file corruption. Version migration when save format changes. Platform-specific save APIs (consoles). Autosave timing causing hitches.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_CAMERA_SYSTEM",
     "name": "Camera System",
     "domain": "programming",
-    "summary": "Spring-arm, look-ahead, dead zones, smoothing, and cinematic cuts. The camera communicates game state and feel — often the hardest part of 3D game dev to get right.",
+    "summary": "Spring-arm, look-ahead, dead zones, smoothing, and cinematic cuts. The camera communicates game state and feel \u00e2\u20ac\u201d often the hardest part of 3D game dev to get right.",
     "when_to_use": "Every 3D game. Even 2D games benefit from camera polish (screenshake, follow logic, parallax).",
     "pitfalls": "Camera clipping through geometry. Motion sickness in first-person. Forgetting to handle transition between gameplay and cutscene cameras.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_INPUT_BUFFERING",
@@ -194,19 +337,37 @@
     "when_to_use": "Any action game with precise timing windows (combos, jumps, attacks). Adds perceived responsiveness without changing actual game speed.",
     "pitfalls": "Buffer window too large feels like input lag. Too small defeats the purpose. Flushing buffer correctly on state transitions.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["platformer", "fighting", "action", "soulslike"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "platformer",
+      "fighting",
+      "action",
+      "soulslike"
+    ]
   },
   {
     "id": "PAT_ABILITY_SYSTEM",
     "name": "Gameplay Ability System",
     "domain": "programming",
     "summary": "Data-driven ability framework: abilities, effects, and attributes are configurable assets. Handles cooldowns, costs, stacking, buffs/debuffs, and targeting.",
-    "when_to_use": "RPGs, MOBAs, action RPGs — any game with a complex ability set. Unreal has GAS built-in; Unity requires custom implementation.",
+    "when_to_use": "RPGs, MOBAs, action RPGs \u00e2\u20ac\u201d any game with a complex ability set. Unreal has GAS built-in; Unity requires custom implementation.",
     "pitfalls": "High upfront complexity. Over-engineering for simple games. GAS learning curve in Unreal is steep.",
     "complexity": 3,
-    "engine_tags": ["unreal", "unity"],
-    "genre_tags": ["rpg", "moba", "action-rpg", "mmo"]
+    "engine_tags": [
+      "unreal",
+      "unity"
+    ],
+    "genre_tags": [
+      "rpg",
+      "moba",
+      "action-rpg",
+      "mmo"
+    ]
   },
   {
     "id": "PAT_AUDIO_MANAGER",
@@ -216,8 +377,14 @@
     "when_to_use": "Every game with audio. The naive approach (AudioSource.PlayClipAtPoint everywhere) collapses immediately in production.",
     "pitfalls": "Audio source pool exhaustion. Forgetting to release pooled sources. Mixing bus complexity. Platform-specific audio codec support.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_SCREEN_SPACE_UI",
@@ -227,8 +394,14 @@
     "when_to_use": "Any game with substantial HUD or menus. The direct approach (read game state in UI directly) becomes unmaintainable quickly.",
     "pitfalls": "Overhead for simple games. MVVM pattern unfamiliar to game devs coming from Unity approach.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_GAME_FEEL",
@@ -238,19 +411,35 @@
     "when_to_use": "Every game. Add after core mechanics work. The rule: if an action has a consequence, it should have a feel response.",
     "pitfalls": "Over-juicing (everything shakes all the time). Juice masking bad game feel instead of fixing it. Accessibility concerns (photosensitivity, motion sickness).",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_DIALOG_SYSTEM",
     "name": "Dialog System",
     "domain": "programming",
     "summary": "Data-driven branching dialog with conditions and consequences. Separate dialog data (Yarn, Ink, JSON) from display logic. Support localization from day one.",
-    "when_to_use": "Any game with NPC conversations, narrative choices, or voiced dialogue. Build data-driven from the start — retrofitting is painful.",
+    "when_to_use": "Any game with NPC conversations, narrative choices, or voiced dialogue. Build data-driven from the start \u00e2\u20ac\u201d retrofitting is painful.",
     "pitfalls": "Ignoring localization until too late. Dialog conditions tightly coupled to game state. No way for writers to preview without running the game.",
     "complexity": 2,
-    "engine_tags": ["unity", "godot", "unreal"],
-    "genre_tags": ["rpg", "adventure", "visual-novel", "narrative"]
+    "engine_tags": [
+      "unity",
+      "godot",
+      "unreal"
+    ],
+    "genre_tags": [
+      "rpg",
+      "adventure",
+      "visual-novel",
+      "narrative"
+    ]
   },
   {
     "id": "PAT_ACHIEVEMENT_SYSTEM",
@@ -260,8 +449,14 @@
     "when_to_use": "Any shipped game on Steam, console, or mobile. Design achievements as a secondary design layer that rewards exploration.",
     "pitfalls": "Coupling achievement checks to gameplay code. Missing platform API rate limits. Retroactive achievement unlocks when adding late.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_GAME_MANAGER",
@@ -271,8 +466,15 @@
     "when_to_use": "When multiple systems need access to shared services and direct dependency injection becomes unwieldy.",
     "pitfalls": "Becomes a grab-bag of unrelated functionality. Hidden dependencies. Prefer DI for testable systems. Don't put game logic here.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_DEAD_RECKONING",
@@ -282,8 +484,18 @@
     "when_to_use": "Any networked game with moving entities where updates arrive slower than frame rate. Racing, flight sims, FPS.",
     "pitfalls": "Visible snapping when prediction diverges from actual. Requires smooth correction blending. Doesn't work well for erratic movement.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["fps", "racing", "mmo", "action"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "fps",
+      "racing",
+      "mmo",
+      "action"
+    ]
   },
   {
     "id": "PAT_AREA_OF_INTEREST",
@@ -293,8 +505,16 @@
     "when_to_use": "Large multiplayer worlds where each player sees only a fraction of total state. MMOs, battle royale, open-world multiplayer.",
     "pitfalls": "Popping when entities enter/leave radius. Edge cases at boundary. Dynamic radius sizing for different entity types.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "custom"],
-    "genre_tags": ["mmo", "action", "sandbox"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "custom"
+    ],
+    "genre_tags": [
+      "mmo",
+      "action",
+      "sandbox"
+    ]
   },
   {
     "id": "PAT_DELTA_COMPRESSION",
@@ -304,8 +524,15 @@
     "when_to_use": "Any networked game with large entity state. Reduces bandwidth proportional to change rate. Most effective for slowly-changing state.",
     "pitfalls": "Must handle baseline reset on packet loss. Complexity of diffing nested structs. Bit-packing required for real savings.",
     "complexity": 3,
-    "engine_tags": ["unreal", "custom"],
-    "genre_tags": ["fps", "mmo", "action"]
+    "engine_tags": [
+      "unreal",
+      "custom"
+    ],
+    "genre_tags": [
+      "fps",
+      "mmo",
+      "action"
+    ]
   },
   {
     "id": "PAT_DETERMINISTIC_LOCKSTEP",
@@ -315,8 +542,13 @@
     "when_to_use": "Games with many units where transmitting all state is impractical. RTS, fighting games, turn-based with simultaneous resolution.",
     "pitfalls": "Requires fully deterministic simulation (no floats, fixed-point math). One slow client stalls everyone. Cheating harder to prevent.",
     "complexity": 3,
-    "engine_tags": ["custom"],
-    "genre_tags": ["strategy", "fighting"]
+    "engine_tags": [
+      "custom"
+    ],
+    "genre_tags": [
+      "strategy",
+      "fighting"
+    ]
   },
   {
     "id": "PAT_LAG_COMPENSATION",
@@ -326,8 +558,15 @@
     "when_to_use": "Any shooter or action game with projectile/hitscan weapons. Essential for fair hit detection in high-latency environments.",
     "pitfalls": "Getting shot behind cover (server rewound past your dodge). Maximum rewind window needed. CPU cost of storing history buffers.",
     "complexity": 3,
-    "engine_tags": ["unreal", "unity", "custom"],
-    "genre_tags": ["fps", "action"]
+    "engine_tags": [
+      "unreal",
+      "unity",
+      "custom"
+    ],
+    "genre_tags": [
+      "fps",
+      "action"
+    ]
   },
   {
     "id": "PAT_DRAW_CALL_BATCHING",
@@ -337,8 +576,14 @@
     "when_to_use": "When CPU-bound on rendering. Scenes with many small objects sharing materials. UI rendering. Particle systems.",
     "pitfalls": "Dynamic batching can cost more CPU than it saves. Material breaks prevent batching. Overdraw from merged geometry.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_OCCLUSION_CULLING",
@@ -348,8 +593,16 @@
     "when_to_use": "Dense indoor environments, cities, any scene with significant overdraw. Most effective with many opaque occluders.",
     "pitfalls": "CPU cost of occlusion queries can exceed GPU savings in open scenes. Baked occlusion data becomes stale. Transparent objects can't occlude.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "rpg", "action"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "rpg",
+      "action"
+    ]
   },
   {
     "id": "PAT_ASSET_STREAMING",
@@ -359,8 +612,17 @@
     "when_to_use": "Open-world games, large levels, games targeting consoles or mobile with limited RAM. Any game larger than available memory.",
     "pitfalls": "Hitching during async loads. Priority system needed for visible vs. predicted assets. Memory fragmentation over time.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["rpg", "sandbox", "action", "mmo"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "sandbox",
+      "action",
+      "mmo"
+    ]
   },
   {
     "id": "PAT_JOB_SYSTEM",
@@ -370,8 +632,14 @@
     "when_to_use": "CPU-bound workloads: physics, AI ticking, pathfinding, procedural generation. Any work that can be split into independent chunks.",
     "pitfalls": "Race conditions and data dependencies. Job overhead for trivially small tasks. Debugging parallel code is harder.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_GPU_SKINNING",
@@ -381,8 +649,16 @@
     "when_to_use": "Games with many animated characters on screen. Crowd scenes, battle games, MMOs with visible player characters.",
     "pitfalls": "Requires compute shader support. Blend shape combinations add complexity. CPU still needed for root motion and IK.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["mmo", "action", "rpg"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "action",
+      "rpg"
+    ]
   },
   {
     "id": "PAT_UTILITY_AI",
@@ -392,8 +668,17 @@
     "when_to_use": "NPCs with many possible actions and nuanced priorities. Life sims, strategy AI, companion AI. When behavior should feel emergent.",
     "pitfalls": "Utility curves need extensive tuning. Hard to debug why an action was chosen. Can feel robotic without randomization.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["rpg", "strategy", "sandbox"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "rpg",
+      "strategy",
+      "sandbox"
+    ]
   },
   {
     "id": "PAT_GOAP",
@@ -403,8 +688,17 @@
     "when_to_use": "Complex AI agents that need to chain multiple actions to achieve goals. Stealth games, tactical AI, sandbox worlds.",
     "pitfalls": "Planning is expensive -- cache plans. Action precondition/effect design is tricky. Hard to guarantee plan validity in dynamic worlds.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "custom"],
-    "genre_tags": ["fps", "rpg", "strategy", "action"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "custom"
+    ],
+    "genre_tags": [
+      "fps",
+      "rpg",
+      "strategy",
+      "action"
+    ]
   },
   {
     "id": "PAT_STEERING_BEHAVIORS",
@@ -414,8 +708,15 @@
     "when_to_use": "Any AI that needs to move through space. Enemies, crowds, flocking birds, traffic. Combine with NavMesh for obstacle avoidance.",
     "pitfalls": "Oscillation when forces conflict. Needs priority or weight tuning. Local minima in force combinations.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_NAVMESH",
@@ -425,8 +726,14 @@
     "when_to_use": "Any game with AI agents that move through 3D space. Most games use NavMesh for ground navigation.",
     "pitfalls": "Bake time for large worlds. Dynamic NavMesh updates are expensive. Flying/swimming AI needs different approaches.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_PERCEPTION_SYSTEM",
@@ -436,19 +743,36 @@
     "when_to_use": "Stealth games, tactical shooters, horror games. Any game where AI awareness of the player matters for gameplay.",
     "pitfalls": "Performance cost of sight checks (raycasts). Tuning perception thresholds for fun vs. realism. Memory of past stimuli adds complexity.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["fps", "rpg", "action", "strategy"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "fps",
+      "rpg",
+      "action",
+      "strategy"
+    ]
   },
   {
     "id": "PAT_SERVICE_LOCATOR",
     "name": "Service Locator",
     "domain": "programming",
-    "summary": "Provide a global access point to a service (audio, physics, logging) without coupling to the concrete implementation. A controlled alternative to raw singletons — swap implementations for testing or platform differences.",
+    "summary": "Provide a global access point to a service (audio, physics, logging) without coupling to the concrete implementation. A controlled alternative to raw singletons \u00e2\u20ac\u201d swap implementations for testing or platform differences.",
     "when_to_use": "Cross-cutting services needed everywhere (audio, analytics, save system). When you want to swap implementations at runtime (mock audio in tests, null logger in production).",
-    "pitfalls": "Still a global — hides dependencies. Overuse leads to the same problems as singletons. Prefer constructor injection when feasible. Unity's FindObjectOfType is the worst form of this.",
+    "pitfalls": "Still a global \u00e2\u20ac\u201d hides dependencies. Overuse leads to the same problems as singletons. Prefer constructor injection when feasible. Unity's FindObjectOfType is the worst form of this.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_EVENT_QUEUE",
@@ -456,21 +780,35 @@
     "domain": "programming",
     "summary": "Buffer events and process them later in a controlled order. Decouples the moment something happens from the moment it is handled. Prevents cascading side effects during update loops.",
     "when_to_use": "Audio event dispatch, UI notification systems, networked event replay, undo/redo systems. Whenever processing order matters or you need to defer work.",
-    "pitfalls": "Queue growth under load — needs a cap or drain policy. Debugging deferred events is harder than synchronous calls. Stale references if objects are destroyed before their events process.",
+    "pitfalls": "Queue growth under load \u00e2\u20ac\u201d needs a cap or drain policy. Debugging deferred events is harder than synchronous calls. Stale references if objects are destroyed before their events process.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_DOUBLE_BUFFER",
     "name": "Double Buffer",
     "domain": "programming",
-    "summary": "Maintain two copies of state — one being read, one being written. Swap atomically when the write is complete. Prevents tearing and ordering bugs during concurrent reads and writes.",
+    "summary": "Maintain two copies of state \u00e2\u20ac\u201d one being read, one being written. Swap atomically when the write is complete. Prevents tearing and ordering bugs during concurrent reads and writes.",
     "when_to_use": "Physics state updates (read current, write next), AI world model snapshots, render state for multithreaded rendering, network snapshot interpolation.",
-    "pitfalls": "Doubles memory usage. Swap timing is critical — a missed swap causes a stale frame. Not always needed if you can guarantee update order.",
+    "pitfalls": "Doubles memory usage. Swap timing is critical \u00e2\u20ac\u201d a missed swap causes a stale frame. Not always needed if you can guarantee update order.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_TYPE_OBJECT",
@@ -480,19 +818,36 @@
     "when_to_use": "RPG item/enemy types, card game card definitions, any system with hundreds of entity variants. Unity ScriptableObjects and Unreal DataAssets are engine implementations of this pattern.",
     "pitfalls": "Type changes at runtime can be confusing. Inheritance between type objects adds complexity. Need a robust editor for designers.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["rpg", "strategy", "roguelite", "simulation"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "rpg",
+      "strategy",
+      "roguelite",
+      "simulation"
+    ]
   },
   {
     "id": "PAT_SUBCLASS_SANDBOX",
     "name": "Subclass Sandbox",
     "domain": "programming",
-    "summary": "Define a base class with a set of protected operations. Subclasses implement behavior by combining those operations — never accessing external systems directly. Limits coupling surface.",
-    "when_to_use": "Spell/ability systems where each spell is a subclass. Unity MonoBehaviour is a sandbox — Start, Update, GetComponent are the provided operations. Keeps subclass authors safe.",
+    "summary": "Define a base class with a set of protected operations. Subclasses implement behavior by combining those operations \u00e2\u20ac\u201d never accessing external systems directly. Limits coupling surface.",
+    "when_to_use": "Spell/ability systems where each spell is a subclass. Unity MonoBehaviour is a sandbox \u00e2\u20ac\u201d Start, Update, GetComponent are the provided operations. Keeps subclass authors safe.",
     "pitfalls": "Base class grows over time as subclasses need more operations. Tight coupling to the sandbox API. Consider composition if the base class exceeds 15-20 operations.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_UPDATE_METHOD",
@@ -500,10 +855,17 @@
     "domain": "programming",
     "summary": "Give each active entity an Update() method called once per frame. The game loop iterates a list of active entities and ticks each one. Simple, universal, and the default in most engines.",
     "when_to_use": "Default for entity behavior in Unity (MonoBehaviour.Update), Godot (_process), Unreal (Tick). Good starting point before optimizing to ECS or batch processing.",
-    "pitfalls": "Per-entity virtual dispatch is cache-unfriendly at scale. Call overhead adds up with thousands of entities. Profile before assuming it's a bottleneck — it's often fine.",
+    "pitfalls": "Per-entity virtual dispatch is cache-unfriendly at scale. Call overhead adds up with thousands of entities. Profile before assuming it's a bottleneck \u00e2\u20ac\u201d it's often fine.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_COMPONENT",
@@ -511,10 +873,17 @@
     "domain": "programming",
     "summary": "Attach reusable behavior components to entities instead of using deep inheritance hierarchies. Each component handles one concern (physics, rendering, AI). Compose entities from components at runtime.",
     "when_to_use": "When entity types share some behaviors but not others (e.g., some enemies fly, some swim). Unity's GameObject+Component, Godot's Node system, Unreal's ActorComponent are all this pattern.",
-    "pitfalls": "Inter-component communication can be awkward (GetComponent lookups). Component ordering may matter (physics before rendering). Not the same as ECS — this is the OOP variant.",
+    "pitfalls": "Inter-component communication can be awkward (GetComponent lookups). Component ordering may matter (physics before rendering). Not the same as ECS \u00e2\u20ac\u201d this is the OOP variant.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_FLYWEIGHT",
@@ -524,8 +893,15 @@
     "when_to_use": "Instanced rendering (thousands of trees sharing one mesh), tile maps, particle systems. GPU instancing in Unity/Unreal is hardware-level flyweight.",
     "pitfalls": "Adds indirection. Mutable shared state causes bugs. Must clearly separate intrinsic from extrinsic state at design time.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_PROTOTYPE",
@@ -533,10 +909,17 @@
     "domain": "programming",
     "summary": "Create new objects by cloning an existing prototype instead of constructing from scratch. Useful when setup is expensive or configuration-heavy. Engine spawn functions are implementations of this pattern.",
     "when_to_use": "Prefab instantiation (Unity Instantiate, Godot duplicate), entity factories, level editors with copy-paste. When objects need complex initialization that a constructor alone can't express.",
-    "pitfalls": "Deep vs. shallow clone confusion — nested references may share state unexpectedly. Clone must properly reset runtime state (health, position). Prototype bloat if prototypes accumulate.",
+    "pitfalls": "Deep vs. shallow clone confusion \u00e2\u20ac\u201d nested references may share state unexpectedly. Clone must properly reset runtime state (health, position). Prototype bloat if prototypes accumulate.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_BYTECODE",
@@ -546,8 +929,18 @@
     "when_to_use": "Modding support, visual scripting (Unreal Blueprints, Godot VisualScript), dialogue trees (Ink, Yarn Spinner), AI behavior configuration for designers.",
     "pitfalls": "Debugging interpreted code is harder. Performance ceiling vs. native code. Version compatibility of saved bytecode across patches. Tooling investment is high.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["rpg", "strategy", "simulation", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "rpg",
+      "strategy",
+      "simulation",
+      "all"
+    ]
   },
   {
     "id": "PAT_ROLLBACK_NETCODE_GGPO",
@@ -557,8 +950,17 @@
     "when_to_use": "Fighting games, fast-paced action, any game where input latency is unacceptable. Best when state snapshots are small and simulation is deterministic.",
     "pitfalls": "Determinism required across all clients. Large state snapshots expensive. Rollback frames cause CPU spikes. Visual artifacts during corrections.",
     "complexity": 5,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["fighting", "action", "platformer"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "fighting",
+      "action",
+      "platformer"
+    ]
   },
   {
     "id": "PAT_SNAPSHOT_INTERPOLATION",
@@ -568,8 +970,16 @@
     "when_to_use": "Games tolerant of 2-3 frame visual delay. MMOs, cooperative games, any game where slight visual lag is acceptable for smooth motion.",
     "pitfalls": "Adds inherent visual latency equal to interpolation buffer. Extrapolation needed at buffer edges. Jitter when packets arrive unevenly.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["mmo", "coop", "shooter"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "coop",
+      "shooter"
+    ]
   },
   {
     "id": "PAT_CLIENT_SIDE_PREDICTION",
@@ -579,8 +989,16 @@
     "when_to_use": "FPS, action games where the player must feel immediate response. Movement prediction is the most common use case.",
     "pitfalls": "Mispredictions cause visible correction snaps. Must store input history for reconciliation. Server must validate all predicted actions.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "action", "mmo"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "action",
+      "mmo"
+    ]
   },
   {
     "id": "PAT_LAG_COMPENSATION",
@@ -590,8 +1008,16 @@
     "when_to_use": "Hitscan weapons, projectile games, any competitive game where hit registration must account for player latency.",
     "pitfalls": "Server rewind is CPU-expensive. Requires reliable timestamp synchronization. Players with high latency can hit around corners (peeker's advantage).",
     "complexity": 5,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "shooter", "action"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "shooter",
+      "action"
+    ]
   },
   {
     "id": "PAT_AUTHORITATIVE_SERVER",
@@ -601,8 +1027,17 @@
     "when_to_use": "All competitive multiplayer games. Essential for ranked play, esports, any game where cheating must be prevented.",
     "pitfalls": "Adds round-trip latency to every action. Must handle prediction and correction smoothly. Server costs scale with player count.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "mmo", "battle-royale", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "mmo",
+      "battle-royale",
+      "all"
+    ]
   },
   {
     "id": "PAT_DETERMINISTIC_LOCKSTEP",
@@ -612,8 +1047,18 @@
     "when_to_use": "RTS games, turn-based games, physics-heavy games like Rocket League. Any game where full state sync would be too expensive.",
     "pitfalls": "All clients must be perfectly deterministic (floating point, iteration order). Desyncs are fatal and hard to debug. Input delay equals round-trip time.",
     "complexity": 5,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["rts", "strategy", "turn-based", "racing"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "rts",
+      "strategy",
+      "turn-based",
+      "racing"
+    ]
   },
   {
     "id": "PAT_DEAD_RECKONING",
@@ -623,8 +1068,16 @@
     "when_to_use": "MMOs, large world games with many entities. Vehicles, NPCs, and distant players whose exact position matters less.",
     "pitfalls": "Accumulates error over time. Correction snaps are visible. Needs threshold tuning per entity type.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["mmo", "open-world", "simulation"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "open-world",
+      "simulation"
+    ]
   },
   {
     "id": "PAT_ENTITY_INTERPOLATION",
@@ -634,8 +1087,16 @@
     "when_to_use": "Third-party entities (other players, AI) in any networked game. Essential complement to client-side prediction.",
     "pitfalls": "Inherent 2-frame visual delay. Must handle teleportation and large corrections gracefully. Buffer underrun causes freezing.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "mmo", "action"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "mmo",
+      "action"
+    ]
   },
   {
     "id": "PAT_INTEREST_MANAGEMENT",
@@ -645,8 +1106,16 @@
     "when_to_use": "MMOs, battle royale, open world multiplayer. Any game with more entities than a single client can process.",
     "pitfalls": "AOI boundary artifacts (entities popping in/out). Load balancing when many players cluster. Spatial data structure overhead.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["mmo", "battle-royale", "open-world"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "battle-royale",
+      "open-world"
+    ]
   },
   {
     "id": "PAT_TICK_RATE",
@@ -656,8 +1125,17 @@
     "when_to_use": "All online games. Choose tick rate based on game speed: 128Hz for competitive FPS, 20-30Hz for MMOs, 60Hz for action games.",
     "pitfalls": "Low tick rate causes inaccurate physics and missed collisions. High tick rate burns bandwidth and CPU. Client interpolation must match.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "mmo", "action", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "mmo",
+      "action",
+      "all"
+    ]
   },
   {
     "id": "PAT_DELTA_COMPRESSION",
@@ -667,8 +1145,16 @@
     "when_to_use": "Bandwidth-constrained games, mobile multiplayer, any game with large world state that changes incrementally.",
     "pitfalls": "Complex state tracking. Baselines must be acknowledged before sending deltas. Lost baseline packets require full resync.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "mmo", "battle-royale"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "mmo",
+      "battle-royale"
+    ]
   },
   {
     "id": "PAT_RELIABLE_UDP",
@@ -678,8 +1164,18 @@
     "when_to_use": "Games needing ordered delivery without TCP latency. Essentially all real-time multiplayer games use some form of RUDP.",
     "pitfalls": "Re-implementation complexity is high. RTT measurement and congestion control needed. Libraries like ENet, LiteNetLib exist for this.",
     "complexity": 5,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["fps", "action", "mmo", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "fps",
+      "action",
+      "mmo",
+      "all"
+    ]
   },
   {
     "id": "PAT_LOBBY_SESSION",
@@ -689,8 +1185,17 @@
     "when_to_use": "Any multiplayer game with discrete matches or sessions. Needed for matchmaking, party systems, and server browser.",
     "pitfalls": "State machine complexity. Graceful host migration in P2P. Handling disconnects, timeouts, and rejoins during lobby phase.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "battle-royale", "party", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "battle-royale",
+      "party",
+      "all"
+    ]
   },
   {
     "id": "PAT_NAT_TRAVERSAL",
@@ -700,8 +1205,17 @@
     "when_to_use": "P2P multiplayer games, voice chat, any direct client-to-client communication. Required when players are behind home routers.",
     "pitfalls": "TURN relay cost when STUN fails (symmetric NAT). Success rate varies by NAT type. TURN servers add latency and hosting cost.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["fighting", "coop", "party"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "fighting",
+      "coop",
+      "party"
+    ]
   },
   {
     "id": "PAT_RELAY_SERVER",
@@ -711,8 +1225,16 @@
     "when_to_use": "When direct P2P fails due to NAT issues. As fallback for STUN/TURN. For small-scale games where dedicated servers are too expensive.",
     "pitfalls": "Relay adds latency (extra hop). Server bandwidth costs scale with player count. Must handle relay server failover.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["coop", "party", "fighting"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "coop",
+      "party",
+      "fighting"
+    ]
   },
   {
     "id": "PAT_CONNECTION_STATE_MACHINE",
@@ -722,8 +1244,14 @@
     "when_to_use": "All online games. Provides clean handling of connection edge cases, timeout recovery, and graceful degradation.",
     "pitfalls": "Edge cases: timeout during handshake, reconnect during disconnect, version mismatch. Must handle all state transitions cleanly.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_BANDWIDTH_BUDGET",
@@ -733,8 +1261,16 @@
     "when_to_use": "Mobile multiplayer, MMOs, any game targeting bandwidth-constrained connections. Essential for games with many networked entities.",
     "pitfalls": "Oversending causes mobile churn and packet loss. Complex to tune per-entity priority. Starvation of low-priority entities.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["mmo", "mobile", "battle-royale"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "mobile",
+      "battle-royale"
+    ]
   },
   {
     "id": "PAT_REPLICATION_PRIORITY",
@@ -744,8 +1280,16 @@
     "when_to_use": "Open world multiplayer, large server rooms. When bandwidth budget forces choices about what to replicate.",
     "pitfalls": "Priority starvation if not balanced. Nearby enemies must always be high-priority. Priority recalculation has CPU cost.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["mmo", "open-world", "battle-royale"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "open-world",
+      "battle-royale"
+    ]
   },
   {
     "id": "PAT_RECONNECT_REJOIN",
@@ -755,8 +1299,16 @@
     "when_to_use": "Session-based competitive games (MOBAs, battle royale). Any game where disconnects shouldn't mean permanent loss.",
     "pitfalls": "State restore complexity. Anti-cheat implications of reconnection. Timeout window tuning. Handling the player's absence during disconnect.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["moba", "battle-royale", "competitive"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "moba",
+      "battle-royale",
+      "competitive"
+    ]
   },
   {
     "id": "PAT_TIME_SYNC",
@@ -766,8 +1318,17 @@
     "when_to_use": "Any game using lag compensation, physics sync, or time-based gameplay mechanics. Foundation for client-side prediction.",
     "pitfalls": "Clock drift between updates. Asymmetric latency complicates RTT calculation. Must filter outlier measurements.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "action", "racing", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "action",
+      "racing",
+      "all"
+    ]
   },
   {
     "id": "PAT_GPU_INSTANCING",
@@ -777,8 +1338,17 @@
     "when_to_use": "100+ identical meshes (grass, trees, rocks, crowd NPCs, bullets). Any scene with repeated geometry.",
     "pitfalls": "Broken by per-instance material property blocks in some engines. All instances must share the same mesh and material. LOD interaction requires care.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["open-world", "rts", "simulation", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open-world",
+      "rts",
+      "simulation",
+      "all"
+    ]
   },
   {
     "id": "PAT_DRAW_CALL_BATCHING",
@@ -788,8 +1358,14 @@
     "when_to_use": "Static geometry, UI elements, any objects that don't move. Most effective when many small objects share the same material.",
     "pitfalls": "Moving objects break batches. Increases memory usage from combined mesh. Overdraw may increase. Only works with shared materials.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_LOD_MANAGEMENT",
@@ -799,19 +1375,34 @@
     "when_to_use": "Open world, any 3D game with draw distance. Essential for maintaining frame rate with detailed environments.",
     "pitfalls": "Pop-in artifacts if LOD thresholds not tuned. Requires authoring multiple LOD meshes. Cross-fade transitions have GPU cost.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["open-world", "fps", "racing", "all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open-world",
+      "fps",
+      "racing",
+      "all"
+    ]
   },
   {
     "id": "PAT_FRUSTUM_CULLING",
     "name": "Frustum Culling",
     "domain": "optimization",
-    "summary": "Skip rendering objects outside the camera's view frustum. The most fundamental culling technique — most engines do this automatically.",
+    "summary": "Skip rendering objects outside the camera's view frustum. The most fundamental culling technique \u00e2\u20ac\u201d most engines do this automatically.",
     "when_to_use": "Any 3D scene. Typically engine-provided but understanding it helps when debugging performance.",
     "pitfalls": "CPU cost of frustum tests for many objects. Must account for shadow-casting objects outside the view. Bounding volume accuracy matters.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_OCCLUSION_CULLING",
@@ -821,8 +1412,16 @@
     "when_to_use": "Dense indoor environments, urban scenes. Any scene where many objects are hidden behind walls or large occluders.",
     "pitfalls": "Baking time for precomputed occlusion. Dynamic scenes require runtime GPU occlusion queries. False positives cause pop-in.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "horror", "adventure"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "horror",
+      "adventure"
+    ]
   },
   {
     "id": "PAT_FRAME_BUDGET",
@@ -832,8 +1431,14 @@
     "when_to_use": "All real-time games targeting a consistent frame rate. Essential for console certification and VR (where dropped frames cause nausea).",
     "pitfalls": "Budget overruns still happen under load. Profiling required to identify bottlenecks. Dynamic content makes static budgets unreliable.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_OBJECT_POOL_MEMORY",
@@ -843,8 +1448,14 @@
     "when_to_use": "Frequent alloc/dealloc hot paths. Unity IL2CPP/Mono, any C# game code path called per-frame. Particle systems, physics callbacks.",
     "pitfalls": "Pool exhaustion under load. Too-large pools waste RAM. Must reset all state on return to pool. Thread safety if pooled across threads.",
     "complexity": 2,
-    "engine_tags": ["unity", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_ASYNC_SCENE_LOADING",
@@ -854,8 +1465,16 @@
     "when_to_use": "Open world games, hub-and-spoke level design. Any game where loading screens break immersion.",
     "pitfalls": "Loading seams at streaming boundaries. Memory spikes during transition. Must handle partially-loaded state gracefully.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["open-world", "adventure", "rpg"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open-world",
+      "adventure",
+      "rpg"
+    ]
   },
   {
     "id": "PAT_SHADER_PERMUTATION",
@@ -865,8 +1484,15 @@
     "when_to_use": "Complex rendering pipelines with many material features. When shader compile times or runtime variant switching becomes a bottleneck.",
     "pitfalls": "Permutation explosion (2^N variants). Long cook/compile times. Runtime variant loading causes hitches. Memory cost of compiled shaders.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_TEXTURE_STREAMING",
@@ -876,8 +1502,16 @@
     "when_to_use": "Open world games with large texture budgets. Any game targeting platforms with limited VRAM.",
     "pitfalls": "Texture pop-in as mips load. Streaming distance tuning per asset. I/O bandwidth contention with other loading.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["open-world", "fps", "racing"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open-world",
+      "fps",
+      "racing"
+    ]
   },
   {
     "id": "PAT_ASSET_BUNDLE",
@@ -887,8 +1521,13 @@
     "when_to_use": "DLC content, modular games, live-service titles. Any game that needs to update content without full rebuilds.",
     "pitfalls": "Dependency cycles between bundles. Bundle granularity tuning (too fine = overhead, too coarse = waste). Version compatibility.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_JOB_SCHEDULING",
@@ -898,8 +1537,17 @@
     "when_to_use": "CPU-bound workloads: physics simulation, AI pathfinding, procedural generation. Unity DOTS, Unreal TaskGraph, Bevy ECS.",
     "pitfalls": "Race conditions if jobs share mutable state. Job dependency graph complexity. Debugging parallel code is harder. Overhead for small jobs.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot", "custom"],
-    "genre_tags": ["simulation", "rts", "open-world"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "simulation",
+      "rts",
+      "open-world"
+    ]
   },
   {
     "id": "PAT_ECS_ARCHETYPE",
@@ -909,8 +1557,15 @@
     "when_to_use": "ECS-based games using Unity DOTS, Bevy, or custom ECS. When iterating over thousands of entities per frame.",
     "pitfalls": "Archetype fragmentation from unique component combinations. Structural changes (add/remove component) are costly. Memory waste from sparse archetypes.",
     "complexity": 4,
-    "engine_tags": ["unity", "custom"],
-    "genre_tags": ["simulation", "rts", "action"]
+    "engine_tags": [
+      "unity",
+      "custom"
+    ],
+    "genre_tags": [
+      "simulation",
+      "rts",
+      "action"
+    ]
   },
   {
     "id": "PAT_SIMD_DATA_LAYOUT",
@@ -920,8 +1575,14 @@
     "when_to_use": "High-frequency simulation loops, particle systems, physics solvers. When profiling shows ALU-bound bottlenecks.",
     "pitfalls": "Platform portability of SIMD intrinsics. Alignment requirements. Code readability suffers. Not all algorithms vectorize cleanly.",
     "complexity": 5,
-    "engine_tags": ["unreal", "custom"],
-    "genre_tags": ["simulation", "physics"]
+    "engine_tags": [
+      "unreal",
+      "custom"
+    ],
+    "genre_tags": [
+      "simulation",
+      "physics"
+    ]
   },
   {
     "id": "PAT_GC_FREE_HOT_PATH",
@@ -931,8 +1592,12 @@
     "when_to_use": "Unity IL2CPP and Mono, any C# game code. Frame-rate-sensitive code paths: Update(), FixedUpdate(), render callbacks.",
     "pitfalls": "Requires discipline across entire API surface. Hard to audit for hidden allocations (string concat, LINQ, boxing). Unity-specific APIs have GC traps.",
     "complexity": 3,
-    "engine_tags": ["unity"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_HANDLE_RESOURCE",
@@ -942,8 +1607,12 @@
     "when_to_use": "Custom engines, Rust game development. Any system managing a large pool of resources with dynamic lifetimes.",
     "pitfalls": "Handle recycling risks ABA problem without generation counters. Indirection cost for every access. API ergonomics vs raw pointers.",
     "complexity": 4,
-    "engine_tags": ["custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_WORLD_STREAMING",
@@ -953,8 +1622,16 @@
     "when_to_use": "Open world games with large terrains. Procedurally generated worlds. Any game where the full world doesn't fit in memory.",
     "pitfalls": "Seam artifacts between terrain chunks. Server authority at streaming boundaries in multiplayer. I/O latency causes pop-in.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["open-world", "survival", "mmo"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open-world",
+      "survival",
+      "mmo"
+    ]
   },
   {
     "id": "PAT_LEVEL_STREAMING_TRIGGERS",
@@ -964,8 +1641,16 @@
     "when_to_use": "Any large level architecture. Linear games with hub areas. Buildings, dungeons, or zones that should load on approach.",
     "pitfalls": "Trigger placement sensitivity. Streaming cost spikes when multiple triggers fire simultaneously. Must handle rapid trigger toggling.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["adventure", "fps", "rpg"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "adventure",
+      "fps",
+      "rpg"
+    ]
   },
   {
     "id": "PAT_PRELOADING",
@@ -975,8 +1660,14 @@
     "when_to_use": "Games with hard loading requirements (VR, console certification). Cutscene-to-gameplay transitions. Arena/round-based games.",
     "pitfalls": "Increased startup time. Memory commitment for preloaded assets that may not be used. Over-preloading wastes resources.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_RENDER_THREAD_SEPARATION",
@@ -986,8 +1677,13 @@
     "when_to_use": "CPU-bound render submission scenarios. High draw-call-count scenes. Most modern engines do this automatically.",
     "pitfalls": "Synchronization overhead between threads. Command buffer allocation costs. Adds one frame of latency to input response.",
     "complexity": 4,
-    "engine_tags": ["unreal", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unreal",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_ECS_ENTITY_LIFECYCLE",
@@ -997,8 +1693,13 @@
     "when_to_use": "Any ECS-based game. Critical for dynamic spawning (bullets, effects) and entity state transitions (alive to dead).",
     "pitfalls": "Structural changes during iteration cause undefined behavior. Deferred command buffers add complexity. Entity ID recycling needs care.",
     "complexity": 3,
-    "engine_tags": ["unity", "custom"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "custom"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_REACTIVE_PROPERTY",
@@ -1008,8 +1709,14 @@
     "when_to_use": "UI data binding (HP bars, score displays). Network property replication. Any system that reacts to state changes.",
     "pitfalls": "Cascade of notifications from interdependent properties. Performance overhead per property change. Memory cost for observer lists.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_ANIMATION_STATE_MACHINE_EXT",
@@ -1019,8 +1726,17 @@
     "when_to_use": "Character-driven games with complex animation requirements. Third-person action, fighting games, cinematic games.",
     "pitfalls": "State explosion with many animation combinations. Transition tuning is time-consuming. Blend tree performance cost at many leaves.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["action", "rpg", "fighting", "adventure"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "action",
+      "rpg",
+      "fighting",
+      "adventure"
+    ]
   },
   {
     "id": "PAT_PHYSICS_LAYER_MATRIX",
@@ -1030,8 +1746,14 @@
     "when_to_use": "Any game with physics. Essential for separating player bullets from friendly NPCs, triggers from physics objects, etc.",
     "pitfalls": "Layer count limits (32 in most engines). Forgetting to update matrix when adding new layers. Performance impact of too many active collision pairs.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_ASSET_DEPENDENCY_GRAPH",
@@ -1041,8 +1763,13 @@
     "when_to_use": "Large projects with many assets. Pipeline automation. When build times need optimization through incremental cooking.",
     "pitfalls": "Circular dependencies. Stale dependency data after manual file moves. Graph traversal cost for deeply nested dependencies.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_SINGLETON_SERVICE",
@@ -1052,8 +1779,14 @@
     "when_to_use": "When exactly one instance is needed and dependency injection is too complex. Prefer Service Locator or DI when possible.",
     "pitfalls": "Hidden dependencies. Testing difficulty (global state). Initialization order problems. Thread safety. Often overused in game code.",
     "complexity": 1,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_FLYWEIGHT_EXTENDED",
@@ -1063,8 +1796,14 @@
     "when_to_use": "Many entities sharing base configuration: enemy stat templates, weapon definitions, terrain tile types, particle effect presets.",
     "pitfalls": "Mutable state must be per-instance. Thread-safe access to shared data. Cache invalidation when shared data updates.",
     "complexity": 2,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["all"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
   },
   {
     "id": "PAT_COMPOSITE_AI",
@@ -1074,8 +1813,17 @@
     "when_to_use": "Complex NPCs with strategic and tactical behavior. Boss fights, companion AI, RTS unit AI with formation + pathfinding + combat.",
     "pitfalls": "Layer interaction complexity. Debugging multi-layer decisions. Priority conflicts between layers.",
     "complexity": 4,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["rpg", "rts", "action", "strategy"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "rts",
+      "action",
+      "strategy"
+    ]
   },
   {
     "id": "PAT_UTILITY_AI",
@@ -1085,8 +1833,16 @@
     "when_to_use": "NPCs that need nuanced, context-aware decisions. The Sims-style needs system. When behavior trees become too complex.",
     "pitfalls": "Tuning utility curves is unintuitive. Hard to guarantee specific behaviors. Debugging why an action was chosen requires logging scores.",
     "complexity": 3,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["simulation", "rpg", "strategy"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "simulation",
+      "rpg",
+      "strategy"
+    ]
   },
   {
     "id": "PAT_GOAP",
@@ -1096,7 +1852,945 @@
     "when_to_use": "Complex AI that needs to adapt to world state. F.E.A.R.-style tactical AI. When hand-authored behavior trees can't cover all situations.",
     "pitfalls": "Search cost for long plans. Action precondition/effect modeling is labor-intensive. Plans can produce unexpected or suboptimal behavior.",
     "complexity": 5,
-    "engine_tags": ["unity", "unreal", "godot"],
-    "genre_tags": ["fps", "strategy", "rpg", "simulation"]
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "strategy",
+      "rpg",
+      "simulation"
+    ]
+  },
+  {
+    "id": "PAT_FINITE_STATE_MACHINE_AI",
+    "name": "Finite State Machine (AI)",
+    "domain": "ai",
+    "summary": "State machine for NPC behavior with states like patrol, alert, attack, flee. Each state defines transitions based on world conditions.",
+    "when_to_use": "Simple NPC behaviors with fewer than 10 states. Guard AI, door logic, simple enemy behaviors.",
+    "pitfalls": "State explosion beyond ~10 states makes maintenance impossible. Transition logic becomes a tangled web. Use behavior trees instead for complex AI.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_HTN",
+    "name": "Hierarchical Task Network (HTN)",
+    "domain": "ai",
+    "summary": "Decompose high-level tasks into primitive actions through methods. Plans are generated by recursively expanding compound tasks.",
+    "when_to_use": "Strategic AI that needs multi-step plans. RTS base building, resource gathering sequences, complex quest NPCs.",
+    "pitfalls": "Planning horizon limits. Determinism is brittle in physics simulations. Method authoring requires domain expertise.",
+    "complexity": 5,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rts",
+      "strategy",
+      "simulation"
+    ]
+  },
+  {
+    "id": "PAT_BLACKBOARD",
+    "name": "Blackboard (AI)",
+    "domain": "ai",
+    "summary": "Shared memory store for behavior tree nodes and AI subsystems. Decouples perception, decision-making, and action execution.",
+    "when_to_use": "Behavior tree implementations. Multi-agent coordination. When AI subsystems need to share data without direct coupling.",
+    "pitfalls": "Stale data if not cleared on state changes. Threading issues in parallel behavior trees. Key naming collisions.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_PATHFINDING_ASTAR",
+    "name": "Pathfinding (A*)",
+    "domain": "ai",
+    "summary": "A* search algorithm for optimal grid/graph path finding. Uses heuristic to guide search toward the goal efficiently.",
+    "when_to_use": "Grid-based or graph-based navigation. Tile-based games, dungeon crawlers, turn-based strategy movement.",
+    "pitfalls": "Performance degrades on large open worlds without hierarchical decomposition. Needs nav mesh for 3D environments. Memory usage with large open lists.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_FLOW_FIELD",
+    "name": "Flow Field Pathfinding",
+    "domain": "ai",
+    "summary": "Generate a vector field over a grid where each cell points toward the destination. All agents sample the field for direction at O(1) per agent per frame.",
+    "when_to_use": "RTS games with hundreds of units moving to the same destination. Crowd navigation. When per-agent A* is too expensive.",
+    "pitfalls": "Memory cost scales with grid resolution. Only suitable for shared-destination scenarios. Dynamic obstacles require field regeneration.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rts",
+      "strategy"
+    ]
+  },
+  {
+    "id": "PAT_MEMORY_WORKING_MEMORY",
+    "name": "Memory / Working Memory (AI)",
+    "domain": "ai",
+    "summary": "Store perceived facts with timestamps and decay. AI remembers where it last saw the player, heard a sound, or found a resource.",
+    "when_to_use": "Stealth games where AI should search last known position. NPCs that remember player actions. Realistic AI perception.",
+    "pitfalls": "Decay timing complexity. Performance with hundreds of agents each maintaining memory stores. Memory serialization for save/load.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "stealth",
+      "fps",
+      "rpg"
+    ]
+  },
+  {
+    "id": "PAT_SQUAD_AI",
+    "name": "Squad AI / Group Tactics",
+    "domain": "ai",
+    "summary": "Coordinate multiple AI agents toward tactical goals. Assign roles (flanker, suppressor, medic), share targets, execute formations.",
+    "when_to_use": "Military shooters, tactical RPGs, RTS squad control. When individual AI looks dumb without coordination.",
+    "pitfalls": "Emergent chaotic behavior when plans conflict. Role assignment needs fallback logic. Debugging group decisions is hard.",
+    "complexity": 5,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "rts",
+      "strategy"
+    ]
+  },
+  {
+    "id": "PAT_COVER_SYSTEM",
+    "name": "Cover System",
+    "domain": "ai",
+    "summary": "Find and evaluate cover positions based on threat direction, exposure angles, distance, and path safety. AI selects optimal cover dynamically.",
+    "when_to_use": "Tactical shooters, stealth games, any combat where AI should use environment defensively.",
+    "pitfalls": "Expensive spatial queries for cover evaluation. Dynamic geometry invalidation. Cover positions can become traps.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "tps",
+      "stealth"
+    ]
+  },
+  {
+    "id": "PAT_THREAT_ASSESSMENT",
+    "name": "Threat Assessment",
+    "domain": "ai",
+    "summary": "Rank targets by danger using factors like distance, damage output, health, line of sight, and recent actions. AI prioritizes threats dynamically.",
+    "when_to_use": "Combat AI target selection. Tower defense priority systems. Any AI that must choose between multiple threats.",
+    "pitfalls": "Reassessment frequency vs CPU cost tradeoff. Hysteresis needed to prevent target flip-flopping. Weight tuning requires playtesting.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "rts",
+      "rpg",
+      "tower_defense"
+    ]
+  },
+  {
+    "id": "PAT_PATROL_GRAPH",
+    "name": "Patrol Graph",
+    "domain": "ai",
+    "summary": "Waypoint-based patrol with variation. AI follows graph edges between patrol points with optional random delays, look-around events, and path alternatives.",
+    "when_to_use": "Guard patrols in stealth games. NPC daily routines. Area coverage patterns for security AI.",
+    "pitfalls": "Predictable patterns without variation. Graph authoring is labor-intensive for large levels. Dynamic obstacle handling.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "stealth",
+      "rpg",
+      "open_world"
+    ]
+  },
+  {
+    "id": "PAT_INFLUENCE_MAP",
+    "name": "Influence Map",
+    "domain": "ai",
+    "summary": "Grid overlay where each cell stores a score representing AI interest, danger, or control. Updated per-frame from entity positions and events.",
+    "when_to_use": "RTS territorial control visualization. Tactical AI positioning. Dynamic difficulty zones. Heat maps for AI decision-making.",
+    "pitfalls": "Resolution vs performance tradeoff. Update frequency cost with many sources. Propagation delay creates stale data.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rts",
+      "strategy",
+      "fps"
+    ]
+  },
+  {
+    "id": "PAT_MCTS",
+    "name": "Monte Carlo Tree Search (MCTS)",
+    "domain": "ai",
+    "summary": "Build a game tree by random playouts, using UCB1 to balance exploration and exploitation. Used in board games and strategic decisions.",
+    "when_to_use": "Board game AI (Go, Chess). Strategic decision-making with large branching factors. Card game AI.",
+    "pitfalls": "Compute budget must be tuned per frame budget. UCB exploration constant needs balancing. Poor with real-time constraints.",
+    "complexity": 5,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "board",
+      "strategy",
+      "card"
+    ]
+  },
+  {
+    "id": "PAT_MINIMAX",
+    "name": "Minimax + Alpha-Beta Pruning",
+    "domain": "ai",
+    "summary": "Adversarial game tree search where one player maximizes score and the other minimizes. Alpha-beta pruning eliminates branches that cannot affect the result.",
+    "when_to_use": "Two-player perfect-information games (chess, checkers, tic-tac-toe). Turn-based strategy AI.",
+    "pitfalls": "Depth limit needed for real-time games. Evaluation function quality is critical. Exponential branching without good pruning.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "board",
+      "strategy",
+      "puzzle"
+    ]
+  },
+  {
+    "id": "PAT_FUZZY_LOGIC_AI",
+    "name": "Fuzzy Logic AI",
+    "domain": "ai",
+    "summary": "Use degree-of-truth rules instead of binary conditions. Somewhat close and very dangerous produce smoother, more natural AI decisions.",
+    "when_to_use": "Nuanced NPC reactions. Difficulty scaling. When crisp boolean logic produces jarring behavior transitions.",
+    "pitfalls": "Rule explosion with many input variables. Harder to debug than crisp logic. Defuzzification method affects behavior feel.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "simulation",
+      "racing"
+    ]
+  },
+  {
+    "id": "PAT_CROWD_RVO",
+    "name": "Crowd Simulation (RVO)",
+    "domain": "ai",
+    "summary": "Reciprocal Velocity Obstacles for dense crowd movement. Each agent computes velocity adjustments to avoid all neighbors simultaneously.",
+    "when_to_use": "Dense crowd scenes (markets, stadiums, evacuation). When navmesh avoidance is not enough for agent-to-agent collision.",
+    "pitfalls": "Oscillation at high density. Requires velocity damping. Performance scales with agent count squared without spatial acceleration.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "simulation",
+      "open_world",
+      "rts"
+    ]
+  },
+  {
+    "id": "PAT_EMOTION_PERSONALITY",
+    "name": "Emotion / Personality Model",
+    "domain": "ai",
+    "summary": "Parameterized NPC personality using models like Big Five or PAD (Pleasure-Arousal-Dominance). Emotions drift based on events and decay over time.",
+    "when_to_use": "Social simulation games (The Sims). RPG companion personality. When NPCs need persistent emotional state.",
+    "pitfalls": "Over-engineering trap for most games. Emergent behavior is hard to predict and QA. Serialization complexity for save/load.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "simulation",
+      "rpg"
+    ]
+  },
+  {
+    "id": "PAT_PROCEDURAL_ANIMATION_SM",
+    "name": "Procedural Animation State Machine",
+    "domain": "ai",
+    "summary": "Blend tree + IK for physics-responsive animation. State machine drives animation clips, IK adjusts limbs to terrain and interactions.",
+    "when_to_use": "Characters on uneven terrain. Physics-based interactions. When canned animations look floaty or disconnected from the world.",
+    "pitfalls": "Foot IK and hand IK are expensive. Weight curve tuning is painstaking. Blending artifacts when transitioning between procedural and canned.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "action",
+      "rpg",
+      "platformer"
+    ]
+  },
+  {
+    "id": "PAT_AI_DIRECTOR",
+    "name": "AI Director (Dynamic Difficulty)",
+    "domain": "ai",
+    "summary": "Adaptive game intensity modulation. Monitor player stress metrics (health, ammo, time) and adjust spawns, item drops, and encounter density in real-time.",
+    "when_to_use": "Horror games (Left 4 Dead model). Roguelikes with adaptive difficulty. Live service games with engagement optimization.",
+    "pitfalls": "Difficulty whiplash if tuning is too aggressive. Requires extensive playtesting. Players may feel manipulated if too obvious.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "horror",
+      "roguelike"
+    ]
+  },
+  {
+    "id": "PAT_REPUTATION_FACTION",
+    "name": "Reputation / Faction System",
+    "domain": "ai",
+    "summary": "Track AI faction disposition toward the player using a reputation graph. Actions affect standing, which gates quests, prices, and NPC behavior.",
+    "when_to_use": "Open-world RPGs with faction politics. Trading games. Games where player choices have social consequences.",
+    "pitfalls": "Graph query cost at scale. Serialization complexity with many factions. Reputation decay balance is hard to tune.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "open_world",
+      "simulation"
+    ]
+  },
+  {
+    "id": "PAT_ECONOMY_LOOP",
+    "name": "Economy Loop",
+    "domain": "design",
+    "summary": "Core game economy cycle: earn, spend, earn. Resources flow through sources (quests, loot) and sinks (upgrades, consumables) in a closed loop.",
+    "when_to_use": "Any game with persistent currency or resources. Foundation for progression systems, crafting, and trading.",
+    "pitfalls": "Inflation if sources outpace sinks. Economy breaking exploits. Balancing early-game scarcity vs late-game abundance.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "simulation",
+      "mmo"
+    ]
+  },
+  {
+    "id": "PAT_SINK_SOURCE_BALANCE",
+    "name": "Sink/Source Balance",
+    "domain": "design",
+    "summary": "Maintain equilibrium between resource generation (sources) and resource consumption (sinks). Monitor flow rates to prevent inflation or deflation.",
+    "when_to_use": "MMO economies, idle games, any live-service game with persistent progression. Economy health monitoring.",
+    "pitfalls": "New content often adds sources without sinks. Player hoarding disrupts flow. Seasonal events can inject unexpected spikes.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "simulation",
+      "idle"
+    ]
+  },
+  {
+    "id": "PAT_GEAR_TREADMILL",
+    "name": "Gear Treadmill",
+    "domain": "design",
+    "summary": "Progression system where new gear obsoletes old gear, motivating continued play. Power level increases drive the loop.",
+    "when_to_use": "Loot-driven ARPGs, MMOs with gear score, any game where equipment progression is the primary motivator.",
+    "pitfalls": "Players feel effort is wasted when gear is obsoleted. Power creep makes old content trivial. Catch-up mechanics are hard.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "mmo",
+      "action"
+    ]
+  },
+  {
+    "id": "PAT_GACHA_LOOT_BOX",
+    "name": "Gacha / Loot Box",
+    "domain": "design",
+    "summary": "Randomized reward system with tiered rarity. Players spend currency for random draws with visible probability tables and pity systems.",
+    "when_to_use": "F2P mobile games, collectible systems, cosmetic monetization. Always with transparent rates and pity guarantees.",
+    "pitfalls": "Legal restrictions in many jurisdictions. Player trust erosion without transparency. Pity system math is non-trivial. Ethical considerations.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mobile",
+      "gacha",
+      "rpg"
+    ]
+  },
+  {
+    "id": "PAT_RESOURCE_CONVERSION",
+    "name": "Resource Conversion Chain",
+    "domain": "design",
+    "summary": "Transform one resource type into another through crafting, refining, or trading. Chains create depth: ore to ingot to sword to enchanted sword.",
+    "when_to_use": "Crafting systems, factory/automation games, survival games with resource processing.",
+    "pitfalls": "Chain complexity overwhelms players. Bottleneck resources frustrate. UI for conversion paths needs careful design.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "survival",
+      "crafting",
+      "simulation"
+    ]
+  },
+  {
+    "id": "PAT_AUCTION_HOUSE",
+    "name": "Auction House / Player Market",
+    "domain": "design",
+    "summary": "Player-to-player trading system with listing, bidding, and buy-now. Price discovery through supply/demand. Transaction fees as an economy sink.",
+    "when_to_use": "MMOs with player trading. Any multiplayer game where player-driven economy adds value.",
+    "pitfalls": "Market manipulation by organized groups. Price crashes from duplication exploits. UI/UX for market browsing is complex.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mmo",
+      "simulation"
+    ]
+  },
+  {
+    "id": "PAT_TOKEN_ECONOMY",
+    "name": "Token Economy (In-Game Currency)",
+    "domain": "design",
+    "summary": "Abstract game value into spendable tokens (gold, gems, credits). Multiple currency tiers gate different content and progression speeds.",
+    "when_to_use": "Any game with purchasable content. F2P monetization. Reward systems.",
+    "pitfalls": "Too many currencies confuse players. Exchange rates between currencies create exploits. Inflation monitoring needed.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_PROGRESSION_GATE",
+    "name": "Progression Gate",
+    "domain": "design",
+    "summary": "Block access to content until a condition is met (level, item, quest completion). Controls pacing and ensures players are prepared.",
+    "when_to_use": "Level-gated content, skill trees, story progression. Tutorial sequences. Difficulty curve management.",
+    "pitfalls": "Gates that feel arbitrary frustrate players. Grinding-to-gate kills momentum. Must balance accessibility with challenge.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_SOFT_HARD_CURRENCY",
+    "name": "Soft/Hard Currency Split",
+    "domain": "design",
+    "summary": "Two-tier currency: soft (earnable in-game, abundant) and hard (premium, scarce). Hard currency gates cosmetics or convenience, never power.",
+    "when_to_use": "F2P games with ethical monetization. Any game separating earnable from purchasable rewards.",
+    "pitfalls": "Pay-to-win perception if hard currency buys power. Conversion rate between currencies is exploitable. Regional pricing complexity.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mobile",
+      "f2p",
+      "mmo"
+    ]
+  },
+  {
+    "id": "PAT_DAILY_WEEKLY_QUEST",
+    "name": "Daily/Weekly Quest Loop",
+    "domain": "design",
+    "summary": "Time-limited objectives that reset on a schedule. Drive daily engagement, provide structured goals, and gate premium rewards behind consistency.",
+    "when_to_use": "Live service games, mobile games with retention goals, MMOs with daily content.",
+    "pitfalls": "FOMO drives burnout. Quest fatigue if objectives are repetitive. Time zone handling complexity.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "mobile",
+      "mmo",
+      "live_service"
+    ]
+  },
+  {
+    "id": "PAT_CCD",
+    "name": "Continuous Collision Detection (CCD)",
+    "domain": "engineering",
+    "summary": "Detect collisions between frames by sweeping shapes along their trajectory. Prevents fast-moving objects from tunneling through thin geometry.",
+    "when_to_use": "Bullets, fast projectiles, racing games with thin walls. Any physics where discrete step misses collisions.",
+    "pitfalls": "Significantly more expensive than discrete detection. Swept shape math is complex. CCD vs CCD (two fast objects) is very hard.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "racing",
+      "action"
+    ]
+  },
+  {
+    "id": "PAT_SWEPT_VOLUME",
+    "name": "Swept Volume Test",
+    "domain": "engineering",
+    "summary": "Compute the volume a shape occupies as it moves from A to B. Used for continuous collision, motion planning, and visibility checks.",
+    "when_to_use": "CCD implementation detail. Motion planning for AI. Swept sphere/capsule tests for character controllers.",
+    "pitfalls": "Rotational sweep is much harder than translational. Approximations (capsule sweep) sacrifice accuracy. GJK-based swept tests are complex.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "action",
+      "fps",
+      "platformer"
+    ]
+  },
+  {
+    "id": "PAT_CONSTRAINT_SOLVER",
+    "name": "Constraint Solver",
+    "domain": "engineering",
+    "summary": "Iteratively resolve physics constraints (joints, contacts, limits) using sequential impulse or projected Gauss-Seidel. Core of rigid body physics.",
+    "when_to_use": "Custom physics engines. Understanding engine constraint behavior. Ragdoll stability tuning.",
+    "pitfalls": "Iteration count vs accuracy tradeoff. Constraint ordering affects convergence. Stacking instability with insufficient iterations.",
+    "complexity": 5,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "simulation",
+      "physics"
+    ]
+  },
+  {
+    "id": "PAT_RAGDOLL",
+    "name": "Ragdoll / Physical Animation",
+    "domain": "engineering",
+    "summary": "Transition from animated to physics-driven skeleton on death/hit. Constrained rigid bodies per bone with joint limits simulate realistic collapse.",
+    "when_to_use": "Death animations, impact reactions, physics-based gameplay. Dynamic hit reactions.",
+    "pitfalls": "Ragdoll jitter on contact. Joint limits need careful tuning per character. Blending from animation to ragdoll produces artifacts.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "action",
+      "simulation"
+    ]
+  },
+  {
+    "id": "PAT_BUOYANCY",
+    "name": "Buoyancy Simulation",
+    "domain": "engineering",
+    "summary": "Apply upward force proportional to submerged volume. Sample water surface height at multiple points on the hull for realistic floating behavior.",
+    "when_to_use": "Boat/ship physics, floating objects, water gameplay. Fishing games, naval combat, flood simulations.",
+    "pitfalls": "Multi-point sampling is expensive. Wave interaction requires surface normal queries. Stability at rest needs damping.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "simulation",
+      "open_world",
+      "naval"
+    ]
+  },
+  {
+    "id": "PAT_VERLET_INTEGRATION",
+    "name": "Verlet Integration (Cloth/Softbody)",
+    "domain": "engineering",
+    "summary": "Position-based physics integration where velocity is implicit from position history. Natural for cloth, rope, and softbody simulation with constraint satisfaction.",
+    "when_to_use": "Cloth simulation, rope physics, hair, tentacles. When Euler integration produces instability.",
+    "pitfalls": "Variable timestep breaks simulation. Constraint iteration count affects stiffness. Collision with complex geometry is expensive.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "simulation",
+      "action",
+      "rpg"
+    ]
+  },
+  {
+    "id": "PAT_DETERMINISTIC_PHYSICS",
+    "name": "Deterministic Physics (Fixed-Point)",
+    "domain": "engineering",
+    "summary": "Use fixed-point arithmetic and deterministic update ordering to guarantee identical simulation results across machines. Required for lockstep multiplayer.",
+    "when_to_use": "Lockstep multiplayer (fighting games, RTS). Replay systems that must reproduce exactly. Competitive games requiring fairness.",
+    "pitfalls": "Floating-point non-determinism across platforms. Fixed-point math is slower and less precise. Third-party physics engines are rarely deterministic.",
+    "complexity": 5,
+    "engine_tags": [
+      "unity",
+      "godot",
+      "custom"
+    ],
+    "genre_tags": [
+      "fighting",
+      "rts",
+      "competitive"
+    ]
+  },
+  {
+    "id": "PAT_MVP_UI",
+    "name": "Model-View-Presenter for Game UI",
+    "domain": "engineering",
+    "summary": "Separate UI logic (Presenter) from display (View) and data (Model). Presenter mediates all interactions, making UI testable and swappable.",
+    "when_to_use": "Complex game menus with business logic. Inventory screens, shop interfaces, character sheets with validation.",
+    "pitfalls": "Over-engineering for simple HUD elements. Presenter proliferation in large UIs. Event routing between presenters adds complexity.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_MVVM_UI",
+    "name": "MVVM for Game UI",
+    "domain": "engineering",
+    "summary": "Model-View-ViewModel with data binding. ViewModel exposes observable properties that Views bind to automatically. Changes propagate without manual update calls.",
+    "when_to_use": "Data-heavy UIs (inventory, crafting, skill trees). When manual UI refresh logic becomes unmanageable. Unity with UI Toolkit.",
+    "pitfalls": "Binding systems have performance cost. Debugging data flow through bindings is harder than direct calls. Framework dependency.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "simulation",
+      "strategy"
+    ]
+  },
+  {
+    "id": "PAT_EVENT_DRIVEN_UI",
+    "name": "Event-Driven UI",
+    "domain": "engineering",
+    "summary": "UI elements subscribe to game events and update reactively. Decouples game logic from UI rendering completely.",
+    "when_to_use": "HUD elements that react to gameplay (health bars, score counters). Notification systems. Achievement popups.",
+    "pitfalls": "Event ordering issues cause flickering. Memory leaks from forgotten subscriptions. Event storms during complex state changes.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_SCREEN_STACK",
+    "name": "Screen Stack Manager",
+    "domain": "engineering",
+    "summary": "Stack-based UI navigation where screens push/pop. Back button always pops. Manages transitions, input focus, and background dimming.",
+    "when_to_use": "Menu systems with nested screens (settings, audio, volume). Mobile game UIs. Pause menus over gameplay.",
+    "pitfalls": "Stack corruption from async operations. Input handling when multiple screens overlap. Memory from keeping screens alive on stack.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_LOCALIZATION",
+    "name": "Localization System",
+    "domain": "engineering",
+    "summary": "Externalize all player-facing text into key-value tables per locale. Support string formatting, pluralization, RTL languages, and font fallbacks.",
+    "when_to_use": "Any game targeting multiple languages. Plan for localization from day one as retrofitting is extremely expensive.",
+    "pitfalls": "String concatenation breaks in other languages (word order varies). Pluralization rules differ per language. UI layout breaks with longer translations.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_ACCESSIBILITY",
+    "name": "Accessibility Mode",
+    "domain": "engineering",
+    "summary": "Configurable accessibility features: colorblind modes, remappable controls, subtitle options, screen reader support.",
+    "when_to_use": "Every game. Accessibility is not optional as it expands your audience and is legally required in some jurisdictions.",
+    "pitfalls": "Retrofitting accessibility is very expensive. Colorblind filters must not break gameplay readability. Controller remapping with combo inputs is complex.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_UI_SKIN_THEME",
+    "name": "UI Skin/Theme System",
+    "domain": "engineering",
+    "summary": "Externalize UI visual properties (colors, fonts, spacing, icons) into swappable theme files. Runtime theme switching without rebuilding UI.",
+    "when_to_use": "Games with customizable UI. Dark/light mode. Accessibility high-contrast themes. Seasonal event skins.",
+    "pitfalls": "Theme variable proliferation. Ensuring all UI elements properly reference theme variables. Performance of runtime theme changes.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "all"
+    ]
+  },
+  {
+    "id": "PAT_DIEGETIC_HUD",
+    "name": "HUD as Diegetic Element",
+    "domain": "engineering",
+    "summary": "Display game information within the game world rather than overlaid (health on character back display, ammo counter on weapon, map as in-game object).",
+    "when_to_use": "Immersive games (Dead Space, Metro). VR games where flat overlays break presence. Horror games minimizing UI.",
+    "pitfalls": "Readability at distance. Camera angle dependency. Combining diegetic with traditional HUD for accessibility.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "fps",
+      "horror",
+      "vr",
+      "action"
+    ]
+  },
+  {
+    "id": "PAT_WEATHER_SYSTEM",
+    "name": "Dynamic Weather System",
+    "domain": "engineering",
+    "summary": "Procedural weather transitions with gameplay effects. Rain reduces visibility, snow affects traction, wind alters projectiles.",
+    "when_to_use": "Open-world games, racing games, survival games. When weather adds tactical depth.",
+    "pitfalls": "Shader cost for weather effects. Gameplay impact balance. State persistence across save/load.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open_world",
+      "racing",
+      "survival"
+    ]
+  },
+  {
+    "id": "PAT_DAY_NIGHT_CYCLE",
+    "name": "Day/Night Cycle",
+    "domain": "engineering",
+    "summary": "Time-of-day system driving lighting, NPC schedules, spawn tables, and gameplay modifiers. Compressed real-time or event-driven progression.",
+    "when_to_use": "Open-world RPGs, survival games, farming sims. When time-of-day creates meaningful gameplay variation.",
+    "pitfalls": "Lighting transition artifacts. NPC schedule synchronization. Player frustration if important content is time-locked.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open_world",
+      "rpg",
+      "survival",
+      "farming"
+    ]
+  },
+  {
+    "id": "PAT_QUEST_GRAPH",
+    "name": "Quest Graph / Journal System",
+    "domain": "engineering",
+    "summary": "Directed graph of quest states with prerequisites, branching outcomes, and tracking. Serializable quest journal with objective checklists.",
+    "when_to_use": "RPGs with branching storylines. Open-world games with side quests. Any game with multi-step objectives.",
+    "pitfalls": "Graph complexity explodes with branching. Save/load must serialize full quest state. Debugging quest progression bugs is painful.",
+    "complexity": 4,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "open_world",
+      "adventure"
+    ]
+  },
+  {
+    "id": "PAT_INVENTORY_GRID",
+    "name": "Inventory System (Grid/Slot)",
+    "domain": "engineering",
+    "summary": "Item storage with grid-based (Resident Evil 4) or slot-based (Diablo) layout. Supports stacking, sorting, drag-drop, and weight/capacity limits.",
+    "when_to_use": "RPGs, survival games, loot-heavy games. When item management is a core gameplay mechanic.",
+    "pitfalls": "Grid tetris frustrates players. Drag-drop on mobile needs alternative. Serialization with item modifiers is complex.",
+    "complexity": 3,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "survival",
+      "action"
+    ]
+  },
+  {
+    "id": "PAT_DAMAGE_NUMBERS",
+    "name": "Damage Numbers / Combat Feedback",
+    "domain": "engineering",
+    "summary": "Floating damage numbers, hit flash, screen shake, and particle effects that communicate combat impact. Juice that makes combat feel responsive.",
+    "when_to_use": "Any game with combat. ARPGs, hack-and-slash, MMOs. When attacks need to feel impactful.",
+    "pitfalls": "Visual noise at high damage frequency. Number readability with many simultaneous hits. Performance with particle overdraw.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "rpg",
+      "action",
+      "mmo"
+    ]
+  },
+  {
+    "id": "PAT_MINIMAP",
+    "name": "Minimap / Radar System",
+    "domain": "engineering",
+    "summary": "Render a top-down or radar-style minimap showing player position, objectives, enemies, and points of interest. Rotate with camera or fixed north-up.",
+    "when_to_use": "Open-world games, shooters with spatial awareness needs, strategy games.",
+    "pitfalls": "Render target performance cost. Fog of war integration. Revealing too much information reduces exploration value.",
+    "complexity": 2,
+    "engine_tags": [
+      "unity",
+      "unreal",
+      "godot"
+    ],
+    "genre_tags": [
+      "open_world",
+      "fps",
+      "rts"
+    ]
   }
 ]
