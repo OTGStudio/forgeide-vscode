@@ -4,7 +4,7 @@
   "description": "AI-powered game design knowledge base and coding assistant for Unity, Unreal Engine, and Godot developers.",
   "version": "0.2.0",
   "publisher": "otgstudio",
-  "repository": "https://github.com/OTGStudio/project-eade",
+  "repository": "https://github.com/OTGStudio/forgeide-vscode",
   "engines": {
     "vscode": "^1.90.0"
   },
